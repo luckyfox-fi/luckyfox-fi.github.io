@@ -1,3 +1,10 @@
 _site/
 .sass-cache/
 .jekyll-metadata
+Gemfile.lock
+
+# OS and IDE files
+.DS_Store
+*.iml
+.idea
+
