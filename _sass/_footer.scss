@@ -1,0 +1,17 @@
+.footer {
+  background: $brand-color;
+  color: #000;
+
+  @include grid-media($large-grid) {
+    height: 150px;
+  }
+
+  .p-street-address {
+    display: block;
+  }
+}
+
+.footer__address, .footer__logo, .footer__some-links {
+  @include grid-column(4);
+}
+

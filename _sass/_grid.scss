@@ -1,0 +1,24 @@
+/**
+ * Grid and responsive breakpoints
+ */
+
+$neat-grid: (
+  columns: 12,
+  gutter: 30px,
+);
+
+$extra-large-grid: (
+  media: 1200px
+);
+
+$large-grid: (
+  media: 992px
+);
+
+$medium-grid: (
+  media: 768px
+);
+
+$small-grid: (
+  media: 576px
+);

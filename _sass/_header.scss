@@ -1,0 +1,39 @@
+.header {
+  h1 {
+    margin: 0;
+  }
+}
+
+.header__title, .header__navigation {
+  @include grid-column(6);
+}
+
+.header__logo {
+  width: 200px;
+  height: auto;
+}
+
+.header__navigation {
+  text-transform: uppercase;
+
+  ul {
+    list-style-type: none;
+
+    li {
+      display: inline;
+      margin-left: 30px;
+    }
+  }
+
+  a {
+    text-decoration: none;
+
+    &:link, &:visited {
+      color: $brand-color;
+    }
+
+    &:hover, &:active {
+      color: $hover-color;
+    }
+  }
+}
