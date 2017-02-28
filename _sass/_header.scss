@@ -1,15 +1,32 @@
 .header {
+  padding-top: 40px;
+  font-family: $header-font-family;
+}
+
+.header__title {
   h1 {
     margin: 0;
   }
+
+  @include grid-column(6, $header-grid);
+  @include grid-push(1, $header-grid);
+  @include grid-media($extra-large-grid) {
+    @include grid-column(5, $header-grid);
+    @include grid-push(2, $header-grid);
+  }
 }
 
-.header__title, .header__navigation {
-  @include grid-column(6);
+.header__navigation {
+  @include grid-column(8, $header-grid);
+  text-align: right;
+
+  @include grid-media($extra-large-grid) {
+    @include grid-column(7, $header-grid);
+  }
 }
 
 .header__logo {
-  width: 200px;
+  width: 145px;
   height: auto;
 }
 
