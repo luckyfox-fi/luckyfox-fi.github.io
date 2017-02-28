@@ -7,6 +7,10 @@ body {
   font-weight: $base-font-weight;
 }
 
+h1 {
+    text-transform: uppercase;
+}
+
 .container {
   @include grid-container;
 }
