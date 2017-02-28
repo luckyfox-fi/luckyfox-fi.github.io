@@ -4,14 +4,16 @@
 
 $base-font-family: "brandon-grotesque", sans-serif;
 $header-font-family: "museo-sans-condensed", sans-serif;
-$base-font-size:   21px;
+$base-font-size: 21px;
 $base-font-weight: 400;
 $base-line-height: 1.5;
 
-$text-color:       #fff;
+$black: #000;
+$text-color: #fff;
 $background-color: #040404;
-$brand-color:      #4ae871;
-$hover-color:      #ef9543;
+$alt-background-color: #f4e9e1;
+$brand-color: #4ae871;
+$hover-color: #ef9543;
 
 @import "neat/neat";
 @import "normalize";

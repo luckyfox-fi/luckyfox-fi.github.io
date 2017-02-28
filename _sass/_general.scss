@@ -8,7 +8,20 @@ body {
 }
 
 h1 {
-    text-transform: uppercase;
+  font-family: $header-font-family;
+  text-transform: uppercase;
+}
+
+a {
+  text-decoration: none;
+
+  &:link, &:visited {
+    color: $brand-color;
+  }
+
+  &:hover, &:active {
+    color: $hover-color;
+  }
 }
 
 .container {

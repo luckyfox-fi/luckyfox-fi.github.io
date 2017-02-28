@@ -23,20 +23,19 @@
 }
 
 .hungry {
-  a {
-    color: $text-color;
-  }
   h1, div {
-    @include grid-column(7);
+    @include grid-column(5);
     @include grid-push(5);
   }
 }
 
 .wanted {
-  background: $text-color;
+  background: $alt-background-color;
+  color: $black;
+
   span {
     display: inline-flex;
-    color: $background-color;
+
     a {
       margin-top: 1.5em;
       margin-left: 1.0em;
@@ -45,25 +44,24 @@
 }
 
 .wanted__text {
-  background: $text-color;
-  color: $background-color;
-  @include grid-column(10);
-  @include grid-push(1);
+  @include grid-column(8);
+  @include grid-push(2);
 }
 
 .hunting__text {
   @include grid-column(4);
-  @include grid-push(8);
+  @include grid-push(6);
 }
 
 .contacts {
-  @include grid-column(10);
-  @include grid-push(1);
+  @include grid-column(8);
+  @include grid-push(2);
 }
 
 .contact {
-  @include grid-column(5);
+  @include grid-column(4);
   margin-left: 0;
+
   img {
     border-radius: 50%;
     float: left;
@@ -74,6 +72,10 @@
 
 .contact__info {
   float: left;
+
+  .p-name {
+    font-family: $header-font-family;
+  }
 }
 
 .contact__description {

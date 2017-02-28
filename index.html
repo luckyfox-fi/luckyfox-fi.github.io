@@ -7,16 +7,18 @@ layout: frontpage
         <p>This is Lucky Fox. A company, where the finest<br> digital thinkers and businesses meet.</p>
     </div>
 </div>
+
 <div class="container">
     <div class="hungry">
         <h1>Hungry like a fox</h1>
         <div>
             We’re looking for the new generation of digital thinkers.</br>
             If creating next level digital services floats your boat,</br>
-            <a href="#contact-us">give us a shout.</a>
+            <a href="#contact-us">give us a shout</a>.
         </div>
     </div>
 </div>
+
 <div id="i-need-a-job" class="wanted">
     <div class="container">
         <div class="wanted__text">
@@ -31,12 +33,13 @@ layout: frontpage
             {% for job in site.data.jobs %}
             <div id="{{ job.name | slugify }}">
                 <span><h3>{{ job.name }}</h3><a href="#"><img src="/images/chevron.svg" width="20px" height="20px" /></a></span>
-                <p style="visibility: {{ visibility }}">{{ job.description }}</p>
+                <p>{{ job.description }}</p>
             </div>
             {% endfor %}
         </div>
     </div>
 </div>
+
 <div id="i-need-an-expert" class="container">
     <div class="hunting">
         <div class="hunting__image"></div>
@@ -56,6 +59,7 @@ layout: frontpage
         </div>
     </div>
 </div>
+
 <div id="contact-us" class="container">
     <div class="contacts h-card">
         <h1>Foxiest of the foxes</h1>
