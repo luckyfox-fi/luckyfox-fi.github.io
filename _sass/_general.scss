@@ -1,8 +1,22 @@
 body {
   background: $background-color;
   color: $text-color;
+  font-family: $base-font-family;
+  font-size: $base-font-size;
+  line-height: $base-font-size * $base-line-height;
+  font-weight: $base-font-weight;
 }
 
 .container {
   @include grid-container;
+}
+
+@mixin vertical-center() {
+  position: relative;
+  top: 50%;
+  transform: perspective(1px) translateY(-50%);
+}
+
+.vertical-center {
+  @include vertical-center;
 }
