@@ -23,10 +23,18 @@
 }
 
 .hungry {
-  h1, div {
-    @include grid-column(5);
-    @include grid-push(5);
-  }
+  position: relative;
+}
+
+.hungry__image {
+  position: relative;
+  display: block;
+}
+
+.hungry__content {
+  position: absolute;
+  top: 10%;
+  right: 30%;
 }
 
 .wanted {
