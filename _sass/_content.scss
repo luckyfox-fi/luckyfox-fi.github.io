@@ -1,6 +1,9 @@
 .hero {
-  @include grid-column(4);
-  @include grid-push(4);
+  @include grid-column(12);
+  @include grid-media($medium-grid) {
+    @include grid-column(4);
+    @include grid-push(4);
+  }
   text-align: center;
 
   p {
