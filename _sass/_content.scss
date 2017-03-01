@@ -56,9 +56,52 @@
   @include grid-push(2);
 }
 
+.wanted__chevron, .wanted__chevron:focus {
+  cursor: pointer;
+  background: none;
+  border: none;
+  margin: 5px 0 0 10px;
+  outline: 0;
+}
+
 .hunting__text {
-  @include grid-column(4);
+  @include grid-column(5);
   @include grid-push(6);
+}
+
+.wanted__content {
+  .wanted__description {
+    max-height: 0vh;
+    overflow: hidden;
+    transition: all 0.50s;
+  }
+
+  .wanted__job-header {
+      transition: all 1s;
+  }
+  .chevron {
+    width: auto;
+    height: 20px;
+  }
+}
+
+.wanted__content-open {
+  .wanted__description {
+    max-height: 50vh;
+    overflow: hidden;
+    transition: all 1s;
+  }
+  .wanted__job-header {
+    color: $brand-color;
+    transition: all 1s;
+  }
+  .chevron {
+    fill: $brand-color;
+    height: 20px;
+    transform: rotate(180deg);
+    transition: all 1s;
+    width: auto;
+  }
 }
 
 .contacts {
@@ -69,7 +112,6 @@
 .contact {
   @include grid-column(4);
   margin-left: 0;
-
   img {
     border-radius: 50%;
     float: left;
@@ -91,6 +133,5 @@
 }
 
 .contact__2 {
-  margin-left: inherit;
   float: right;
 }
