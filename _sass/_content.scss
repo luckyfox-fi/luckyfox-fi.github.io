@@ -37,9 +37,9 @@
 .hungry__content {
   @include grid-column(9);
   @include grid-push(2);
-  top: 10%;
   left: 3%;
   position: absolute;
+  top: 10%;
   @include grid-media($large-grid) {
     @include grid-column(4);
     @include grid-push(5);
@@ -144,26 +144,55 @@
 }
 
 .contacts {
-  @include grid-column(8);
-  @include grid-push(2);
+  @include grid-column(12);
+  h1 {text-align: center;}
+  @include grid-media($medium-grid) {
+    h1 {text-align: inherit;}
+  }
+  @include grid-media($extra-large-grid) {
+    @include grid-column(8);
+    @include grid-push(2);
+  }
 }
 
 .contact {
-  @include grid-column(4);
-  margin-left: 0;
-  img {
-    border-radius: 50%;
-    float: left;
-    height: auto;
-    width: 120px;
+  float: left;
+  margin-bottom: 2em;
+  margin-top: 2em;
+  @include grid-column(12);
+  h3 {margin: 10px;}
+  @include grid-media($medium-grid) {
+    @include grid-column(6);
   }
 }
 
 .contact__info {
-  float: left;
-  .p-name {
-    font-family: $header-font-family;
+  float: right;
+  text-align: center;
+  @include grid-column(12);
+  .p-name {font-family: $header-font-family;}
+  @include grid-media($medium-grid) {
+    @include grid-column(7);
+    float: right;
+    margin-left: 0;
+    text-align: left;
+    h3 {margin-left: 0;}
   }
+  @include grid-media($large-grid) {
+    float: left;
+  }
+}
+
+.contact__image {
+  border-radius: 50%;
+  height: 120px;
+  text-align: center;
+  @include grid-column(8);
+  @include grid-push(2);
+  @include grid-media($medium-grid) {
+    @include grid-column(4);
+  }
+
 }
 
 .contact__description {
@@ -171,5 +200,8 @@
 }
 
 .contact__2 {
-  float: right;
+  float: left;
+  @include grid-media($medium-grid) {
+    float: right;
+  }
 }

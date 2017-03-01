@@ -78,7 +78,9 @@ layout: frontpage
         <h1>Foxiest of the foxes</h1>
         {% for contact in site.data.contacts %}
         <div class="contact contact__{{ contact.id }}">
-            <img class="u-photo" src="{{ contact.image }}" alt="{{ contact.name }}" />
+            <div class="contact__image">
+                <img class="u-photo" src="{{ contact.image }}" alt="{{ contact.name }}" />
+            </div>
             <div class="contact__info">
                 <h3 class="p-name">{{ contact.name }}</h3>
                 <span class="u-email">{{ contact.email }}</span></br>
