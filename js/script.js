@@ -2,7 +2,7 @@
 var controller = new ScrollMagic.Controller();
 
 $(function () {
-    if ($(window).width() >= 767) {
+    if (!window.matchMedia('(max-width: 768px)').matches) {
         // change behaviour of controller to animate scroll instead of jump
         controller.scrollTo(function (newpos) {
             TweenMax.to(window, 0.5, {scrollTo: {y: newpos}});
