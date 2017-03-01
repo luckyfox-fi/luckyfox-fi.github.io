@@ -38,14 +38,14 @@ layout: frontpage
                 (At the moment we are hiring a professional for the position of:)
             </p>
             {% for job in site.data.jobs %}
-            <div class="wanted__content" id="wanted__content-{{ forloop.index }}">
+            <div class="job job-{{ forloop.index }}">
                 <span>
-                    <h3 class="wanted__job-header" id="wanted__job-header-{{ forloop.index }}">{{ job.name }}</h3>
-                    <button class="wanted__chevron" onclick="onClick({{ forloop.index }})">
-                        <svg class="chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34 34"><polygon points="17 25.63 2 12.07 5.34 8.37 17 18.91 28.66 8.37 32 12.07 17 25.63"/></svg>
+                    <h3 class="job__title">{{ job.name }}</h3>
+                    <button class="job__button" id="{{ forloop.index }}">
+                        <svg class="job__open-description" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34 34"><polygon points="17 25.63 2 12.07 5.34 8.37 17 18.91 28.66 8.37 32 12.07 17 25.63"/></svg>
                     </button>
                 </span>
-                <p class="wanted__description" id="wanted__description-{{ forloop.index }}">{{ job.description }}</p>
+                <p class="job__description">{{ job.description }}</p>
             </div>
             {% endfor %}
         </div>
@@ -91,13 +91,3 @@ layout: frontpage
         {% endfor %}
     </div>
 </div>
-<script>
-    function onClick(i) {
-        var text = document.getElementById('wanted__content-' + i);
-        if (text.className === 'wanted__content') {
-            text.className = 'wanted__content-open';
-        } else {
-            text.className = 'wanted__content';
-        }
-    }
-</script>
