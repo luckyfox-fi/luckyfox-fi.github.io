@@ -2,9 +2,14 @@ body {
   background: $background-color;
   color: $text-color;
   font-family: $base-font-family;
-  font-size: $base-font-size;
-  line-height: $base-font-size * $base-line-height;
+  font-size: $mobile-font-size;
+  line-height: $mobile-font-size * $base-line-height;
   font-weight: $base-font-weight;
+
+  @include grid-media($medium-grid) {
+    font-size: $base-font-size;
+    line-height: $base-font-size * $base-line-height;
+  }
 }
 
 h1 {

@@ -1,7 +1,55 @@
-// init controller
+$(function () {
+    pageInit();
+
+    $(window).resize(function() {
+        resizeHandler();
+    });
+});
+
 var controller = new ScrollMagic.Controller();
 
-$(function () {
+function pageInit() {
+    mobileNavInit();
+    scrollNavInit();
+    stickyHeaderInit();
+    jobDescriptionToggler();
+}
+
+function resizeHandler() {
+    mobileNavInit();
+    scrollNavInit();
+}
+
+function jobDescriptionToggler() {
+    $(".job__button").click(function() {
+        $(".wanted__text").find(".job-" + this.id).toggleClass("job--open");
+    });
+}
+
+function stickyHeaderInit() {
+    var stickyHeader = new ScrollMagic.Scene({duration: 240})
+        .setPin(".header", {
+            pushFollowers: true,
+            spacerClass: "header__pin"
+        })
+        .addTo(controller);
+
+    stickyHeader.on('end', function (event) {
+        var header = $('.header');
+        if (event.scrollDirection === 'FORWARD') {
+            TweenMax.to(header, 0.2, {opacity: 0});
+        }
+        else {
+            TweenMax.to(header, 0.4, {opacity: 1});
+        }
+    });
+
+}
+
+/**
+ * Scroll based navigation on bigger screen sizes
+ */
+function scrollNavInit() {
     if (!window.matchMedia('(max-width: 768px)').matches) {
         // change behaviour of controller to animate scroll instead of jump
         controller.scrollTo(function (newpos) {
@@ -25,25 +73,57 @@ $(function () {
             }
         });
     }
+}
 
-    var stickyHeader = new ScrollMagic.Scene({duration: 240})
-        .setPin(".header", {
-            pushFollowers: true,
-            spacerClass: "header__pin"
-        })
-        .addTo(controller);
 
-    stickyHeader.on('end', function (event) {
-        var header = $('.header');
-        if (event.scrollDirection === 'FORWARD') {
-            TweenMax.to(header, 0.2, {opacity: 0});
-        }
-        else {
-            TweenMax.to(header, 0.4, {opacity: 1});
-        }
-    });
-});
+/**
+ * Mobile navigation
+ */
+function mobileNavInit() {
+    var header = $('.header');
+    var mobileClass = 'header--mobile';
+    if (window.matchMedia('(max-width: 768px)').matches) {
+        header.addClass(mobileClass);
 
-$( ".job__button" ).click(function() {
-     $(".wanted__text").find(".job-" + this.id).toggleClass("job--open");
-});
+        $('.header__mobile-nav-btn--open').click(function() {
+            showMobileNav(true);
+        });
+
+        $('.header__mobile-nav-btn--close').click(function() {
+            showMobileNav(false);
+        });
+
+        $('.header__navigation a').click(function() {
+           showMobileNav(false);
+        });
+    }
+    else {
+        header.removeClass(mobileClass);
+    }
+}
+
+function showMobileNav(open) {
+    var header = $('.header');
+    var openIcon = $('.header__mobile-nav-btn--open');
+    var closeIcon = $('.header__mobile-nav-btn--close');
+    var navList = $('.header__navigation ul');
+    var navOpenClass = 'header--mobile-open';
+    if (open) {
+        console.log("open");
+        header.addClass(navOpenClass);
+        openIcon.hide();
+        navList.show();
+        closeIcon.show();
+
+        header.on('touchmove', function(event) {
+            event.preventDefault();
+        });
+    } else {
+        console.log("close");
+        header.off('touchmove');
+        header.removeClass(navOpenClass);
+        navList.hide();
+        closeIcon.hide();
+        openIcon.show();
+    }
+}
