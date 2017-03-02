@@ -1,11 +1,10 @@
 .hero {
   @include grid-column(12);
   @include grid-media($medium-grid) {
-    @include grid-column(4);
-    @include grid-push(4);
+    @include grid-column(6);
+    @include grid-push(3);
   }
   text-align: center;
-
   p {
     $font-size: 26px;
     font-size: $font-size;
@@ -15,8 +14,8 @@
 }
 
 .hero__image {
-  width: 150px;
   height: auto;
+  width: 150px;
 }
 
 .hungry, .wanted, .hunting, .contact {
@@ -26,19 +25,19 @@
 }
 
 .hungry {
+  float: none;
   margin-left: 0;
   position: relative;
-  float: none;
 }
 
 .hungry__image {
-  width: 100%;
-  float: left;
-  margin-left: 0;
-  height: auto;
-  position: relative;
   display: block;
+  float: left;
+  height: auto;
+  margin-left: 0;
   overflow: hidden;
+  position: relative;
+  width: 100%;
   img {
     width: 100%;
   }
@@ -51,8 +50,15 @@
   position: absolute;
   top: 10%;
   @include grid-media($large-grid) {
+    @include grid-column(6);
+    @include grid-push(4);
+  }
+  @include grid-media($extra-large-grid) {
     @include grid-column(4);
     @include grid-push(5);
+  }
+  h1 {
+    width: 105%;
   }
 }
 
@@ -64,8 +70,8 @@
     display: inline-flex;
 
     a {
-      margin-top: 1.5em;
       margin-left: 1.0em;
+      margin-top: 1.5em;
     }
   }
 }
@@ -77,12 +83,19 @@
     @include grid-column(8);
     @include grid-push(2);
   }
+  @include grid-media($extra-large-grid) {
+    @include grid-column(6);
+    @include grid-push(3);
+  }
+  h1 {
+    margin-bottom: 0;
+  }
 }
 
 .job__button, .job__button:focus {
-  cursor: pointer;
   background: none;
   border: none;
+  cursor: pointer;
   margin: 5px 0 0 10px;
   outline: 0;
 }
@@ -92,14 +105,19 @@
 }
 
 .job__description {
+  margin-top: 0;
   max-height: 0;
   overflow: hidden;
   transition: all 0.50s;
 }
 
 .job__open-description {
-  width: auto;
   height: 20px;
+  width: auto;
+}
+
+.job__title {
+  margin: 5px 0 5px;
 }
 
 .job--open {
@@ -116,80 +134,142 @@
 }
 
 .hunting__text {
-  @include grid-column(12);
+  @include grid-column(10);
+  @include grid-push(1);
   h1 {
+    height: 20px;
+    margin-left: 0;
+    margin-top: 0;
     position: relative;
     text-align: center;
     top: -190px;
+    width: 100%;
   }
   @include grid-media($small-grid) {
-    h1 {top: -260px;}
+    h1 {top: -330px;}
   }
   @include grid-media($large-grid) {
-    h1{top: -330px;}
-  }
-  @include grid-media($large-grid) {
-    @include grid-column(5);
     h1 {
+      height: auto;
       position: relative;
       text-align: left;
       top: auto;
+      width: 130%;
+    }
+    margin-left: 50px;
+    margin-top: 20px;
+    width: 30%;
+  }
+}
+
+.hunting {
+  .container::after {
+    clear: both;
+    content: "";
+    background-image: url(/images/sections/peeking-fox-S-1x.jpg);
+    background-position: 0% 0%;
+    background-repeat: no-repeat;
+    height: 60px;
+    opacity: 0.6;
+  }
+  @include grid-media($large-grid) {
+    .container::after {
+      background: none;
+      content: "";
+      display: block;
     }
   }
 }
 
 .hunting__image {
+  display: block;
+  float: left;
+  height: auto;
+  margin-left: 0;
+  max-height: 400px;
+  overflow: hidden;
+  position: relative;
   width: 100%;
-  margin: 0;
   img {
     width: 100%;
-    margin-left: 0;
+    @include grid-media($large-grid) {
+      height: 100%;
+      max-height: 900px;
+      width: auto;
+      left: -50%;
+      position: relative;
+    }
+    @include grid-media($extra-large-grid) {
+      width: 100%;
+      height: auto;
+      max-height: 100%;
+      left: 0;
+    }
+  }
+  @include grid-media($medium-grid) {
+    height: 100%;
+    min-height: 100%;
   }
   @include grid-media($large-grid) {
-    img {
-      @include grid-column(7);
-      margin-left: 0;
-    }
+    margin-left: 0;
+    max-height: 100%;
+    min-height: 100%;
+    overflow: hidden;
+    position: relative;
+    width: 55%;
   }
 }
 
 .contacts {
-  @include grid-column(12);
-  h1 {text-align: center;}
-  @include grid-media($medium-grid) {
-    h1 {text-align: inherit;}
-  }
-  @include grid-media($extra-large-grid) {
-    @include grid-column(8);
-    @include grid-push(2);
+  h1 {
+    @include grid-column(12);
+    text-align: center;
+    @include grid-media($medium-grid) {
+      padding-left: 25px;
+      text-align: left;
+    }
+    @include grid-media($large-grid) {
+      @include grid-column(10);
+      @include grid-push(1);
+    }
   }
 }
 
 .contact {
-  float: left;
-  margin-bottom: 2em;
-  margin-top: 2em;
-  @include grid-column(12);
-  h3 {margin: 10px;}
+  text-align: left;
+  @include grid-column(10);
+  @include grid-push(1);
   @include grid-media($medium-grid) {
     @include grid-column(6);
+  }
+  @include grid-media($large-grid) {
+    @include grid-column(5);
+    @include grid-push(1);
+  }
+}
+
+.contact-1 {
+  @include grid-media($extra-large-grid) {
+    @include grid-column(4);
+    @include grid-push(2);
+  }
+}
+.contact-2 {
+  @include grid-media($extra-large-grid) {
+    @include grid-column(4);
   }
 }
 
 .contact__info {
-  float: right;
   text-align: center;
-  @include grid-column(12);
+  @include grid-column(10);
+  @include grid-push(1);
   .p-name {font-family: $header-font-family;}
   @include grid-media($medium-grid) {
     @include grid-column(7);
-    float: right;
-    margin-left: 0;
     text-align: left;
-    h3 {margin-left: 0;}
   }
   @include grid-media($large-grid) {
-    float: left;
   }
 }
 
@@ -207,11 +287,7 @@
 
 .contact__description {
   float: left;
-}
-
-.contact__2 {
-  float: left;
   @include grid-media($medium-grid) {
-    float: right;
+    @include grid-column(12);
   }
 }
