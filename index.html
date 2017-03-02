@@ -38,18 +38,24 @@ layout: frontpage
                 (At the moment we are hiring a professional for the position of:)
             </p>
             {% for job in site.data.jobs %}
-            <div id="{{ job.name | slugify }}">
-                <span><h3>{{ job.name }}</h3><a href="#"><img src="/images/chevron.svg" width="20px" height="20px" /></a></span>
-                <p>{{ job.description }}</p>
+            <div class="job job-{{ forloop.index }}">
+                <span>
+                    <h3 class="job__title">{{ job.name }}</h3>
+                    <button class="job__button" id="{{ forloop.index }}">
+                        <svg class="job__open-description" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34 34"><polygon points="17 25.63 2 12.07 5.34 8.37 17 18.91 28.66 8.37 32 12.07 17 25.63"/></svg>
+                    </button>
+                </span>
+                <p class="job__description">{{ job.description }}</p>
             </div>
             {% endfor %}
         </div>
     </div>
 </div>
 
-<div id="i-need-an-expert" class="container">
-    <div class="hunting">
-        <div class="hunting__image"></div>
+<div id="i-need-an-expert" class="hunting">
+    {% include picture.html cssClass="hunting__image" alt="Hunting" medium="/images/sections/peeking-fox-XL-1x.jpg"
+    small="/images/sections/peeking-fox-S-1x.jpg, /images/sections/peeking-fox-S-2x.jpg 2x, /images/sections/peeking-fox-S-3x.jpg 3x" %}
+    <div class="container">
         <div class="hunting__text">
             <h1>Lucky Fox Hunting</h1>
             <div>
@@ -72,7 +78,9 @@ layout: frontpage
         <h1>Foxiest of the foxes</h1>
         {% for contact in site.data.contacts %}
         <div class="contact contact__{{ contact.id }}">
-            <img class="u-photo" src="{{ contact.image }}" alt="{{ contact.name }}" />
+            <div class="contact__image">
+                <img class="u-photo" src="{{ contact.image }}" alt="{{ contact.name }}" />
+            </div>
             <div class="contact__info">
                 <h3 class="p-name">{{ contact.name }}</h3>
                 <span class="u-email">{{ contact.email }}</span></br>

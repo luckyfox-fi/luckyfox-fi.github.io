@@ -1,6 +1,9 @@
 .hero {
-  @include grid-column(4);
-  @include grid-push(4);
+  @include grid-column(12);
+  @include grid-media($medium-grid) {
+    @include grid-column(4);
+    @include grid-push(4);
+  }
   text-align: center;
 
   p {
@@ -23,18 +26,34 @@
 }
 
 .hungry {
+  margin-left: 0;
   position: relative;
+  float: none;
 }
 
 .hungry__image {
+  width: 100%;
+  float: left;
+  margin-left: 0;
+  height: auto;
   position: relative;
   display: block;
+  overflow: hidden;
+  img {
+    width: 100%;
+  }
 }
 
 .hungry__content {
+  @include grid-column(7);
+  @include grid-push(3);
+  left: 3%;
   position: absolute;
   top: 10%;
-  right: 30%;
+  @include grid-media($large-grid) {
+    @include grid-column(4);
+    @include grid-push(5);
+  }
 }
 
 .wanted {
@@ -52,38 +71,138 @@
 }
 
 .wanted__text {
-  @include grid-column(8);
-  @include grid-push(2);
+  @include grid-column(10);
+  @include grid-push(1);
+  @include grid-media($medium-grid) {
+    @include grid-column(8);
+    @include grid-push(2);
+  }
+}
+
+.job__button, .job__button:focus {
+  cursor: pointer;
+  background: none;
+  border: none;
+  margin: 5px 0 0 10px;
+  outline: 0;
+}
+
+.job__description, .job__title, .job__open-description {
+  transition: all 1s;
+}
+
+.job__description {
+  max-height: 0;
+  overflow: hidden;
+  transition: all 0.50s;
+}
+
+.job__open-description {
+  width: auto;
+  height: 20px;
+}
+
+.job--open {
+  .job__description {
+    max-height: 50vh;
+  }
+  .job__title {
+    color: $brand-color;
+  }
+  .job__open-description {
+    fill: $brand-color;
+    transform: rotate(180deg);
+  }
 }
 
 .hunting__text {
-  @include grid-column(4);
-  @include grid-push(6);
+  @include grid-column(12);
+  h1 {
+    position: relative;
+    text-align: center;
+    top: -190px;
+  }
+  @include grid-media($small-grid) {
+    h1 {top: -260px;}
+  }
+  @include grid-media($large-grid) {
+    h1{top: -330px;}
+  }
+  @include grid-media($large-grid) {
+    @include grid-column(5);
+    h1 {
+      position: relative;
+      text-align: left;
+      top: auto;
+    }
+  }
+}
+
+.hunting__image {
+  width: 100%;
+  margin: 0;
+  img {
+    width: 100%;
+    margin-left: 0;
+  }
+  @include grid-media($large-grid) {
+    img {
+      @include grid-column(7);
+      margin-left: 0;
+    }
+  }
 }
 
 .contacts {
-  @include grid-column(8);
-  @include grid-push(2);
+  @include grid-column(12);
+  h1 {text-align: center;}
+  @include grid-media($medium-grid) {
+    h1 {text-align: inherit;}
+  }
+  @include grid-media($extra-large-grid) {
+    @include grid-column(8);
+    @include grid-push(2);
+  }
 }
 
 .contact {
-  @include grid-column(4);
-  margin-left: 0;
-
-  img {
-    border-radius: 50%;
-    float: left;
-    height: auto;
-    width: 120px;
+  float: left;
+  margin-bottom: 2em;
+  margin-top: 2em;
+  @include grid-column(12);
+  h3 {margin: 10px;}
+  @include grid-media($medium-grid) {
+    @include grid-column(6);
   }
 }
 
 .contact__info {
-  float: left;
-
-  .p-name {
-    font-family: $header-font-family;
+  float: right;
+  text-align: center;
+  @include grid-column(12);
+  .p-name {font-family: $header-font-family;}
+  @include grid-media($medium-grid) {
+    @include grid-column(7);
+    float: right;
+    margin-left: 0;
+    text-align: left;
+    h3 {margin-left: 0;}
   }
+  @include grid-media($large-grid) {
+    float: left;
+  }
+}
+
+.contact__image {
+  border-radius: 50%;
+  height: 120px;
+  text-align: center;
+  @include grid-column(8);
+  @include grid-push(2);
+  @include grid-media($medium-grid) {
+    @include grid-column(4);
+  }
+
 }
 
 .contact__description {
@@ -91,6 +210,8 @@
 }
 
 .contact__2 {
-  margin-left: inherit;
-  float: right;
+  float: left;
+  @include grid-media($medium-grid) {
+    float: right;
+  }
 }

@@ -44,3 +44,6 @@ $(function () {
     });
 });
 
+$( ".job__button" ).click(function() {
+     $(".wanted__text").find(".job-" + this.id).toggleClass("job--open");
+});
