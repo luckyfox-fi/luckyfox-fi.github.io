@@ -1,7 +1,9 @@
 .footer {
   background: $brand-color;
-  color: #000;
   box-shadow: inset 0 15px 25px -15px #000;
+  color: #000;
+  text-align: center;
+  position: relative;
 
   .p-street-address {
     display: block;
@@ -9,31 +11,84 @@
 }
 
 .footer__address, .footer__logo, .footer__some-links {
-  height: 220px;
+  height: 120px;
 }
 
 .footer__address {
-  @include grid-column(3);
-  @include grid-push(2);
+  position: relative;
+  top: 90px;
 }
 
 .footer__logo {
-  @include grid-column(2);
-  text-align: center;
-}
-
-.footer__some-links {
-  @include grid-column(3);
-  text-align: right;
-
-  a {
-    text-decoration: none;
-    margin-left: 20px;
-  }
+  position: absolute;
+  top: 0;
+  width: 100%;
 }
 
 .footer__logo-img {
-  width: 120px;
   height: auto;
-  @include vertical-center;
+  padding-top: 35px;
+  width: 100px;
+}
+
+.footer__some-links {
+  margin-top: 30px;
+  a {
+    margin: 10px;
+  }
+}
+
+.footer__some-links, .footer_logo, .footer__address {
+  width: 100%;
+  padding-top: 30px;
+}
+
+@include grid-media($medium-grid) {
+  .footer__address, .footer__logo, .footer__some-links {
+    height: 220px;
+    padding-top: 0;
+  }
+
+  .footer__address {
+    top: auto;
+    text-align: left;
+    @include grid-column(4);
+    @include grid-push(1);
+  }
+
+  .footer__logo {
+    @include grid-column(2);
+    position: relative;
+    text-align: center;
+    top: auto;
+  }
+
+  .footer__logo-img {
+    @include vertical-center;
+    padding-top: inherit;
+    width: 120px;
+  }
+
+  .footer__some-links {
+    @include grid-column(4);
+    margin-top: auto;
+    text-align: right;
+    a {
+      text-decoration: none;
+      margin-left: 20px;
+    }
+  }
+}
+
+@include grid-media($large-grid) {
+  .footer__address {
+    @include grid-column(3);
+    @include grid-push(2);
+  }
+  .footer__logo {
+    @include grid-column(2);
+  }
+  .footer__some-links {
+    @include grid-column(3);
+  }
 }
