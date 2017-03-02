@@ -14,7 +14,20 @@ body {
 
 h1 {
   font-family: $header-font-family;
+  line-height: $mobile-header-size * $base-line-height;
   text-transform: uppercase;
+  font-size: $mobile-header-size;
+}
+
+@include grid-media($medium-grid) {
+  p, span {
+    font-size: $base-font-size;
+    line-height: $base-font-size * $base-line-height;
+  }
+    h1 {
+      font-size: $base-header-size;
+      line-height: $base-header-size * $base-line-height;
+    }
 }
 
 a {
@@ -31,6 +44,8 @@ a {
 
 .container {
   @include grid-container;
+  padding-bottom: 35px;
+  padding-top: 35px;
 }
 
 @mixin vertical-center() {
@@ -74,6 +89,7 @@ a {
   width: 100%;
   //@include grid-column(12);
   text-align: center;
+  z-index: 10;
 }
 
 .scroll__button {
@@ -95,4 +111,3 @@ a {
     fill: $black;
   }
 }
-
