@@ -13,6 +13,7 @@ function pageInit() {
     scrollNavInit();
     stickyHeaderInit();
     jobDescriptionToggler();
+    bindSectionScrollers();
 }
 
 function resizeHandler() {
@@ -43,8 +44,24 @@ function stickyHeaderInit() {
             TweenMax.to(header, 0.4, {opacity: 1});
         }
     });
-
 }
+
+function bindSectionScrollers() {
+    $('.scroll-button').click(function() {
+        var id = $(this).data('href');
+        controller.scrollTo(id);
+    });
+}
+
+function scrollToId(id) {
+    controller.scrollTo(id);
+
+    // if supported by the browser we can even update the URL.
+    if (window.history && window.history.pushState) {
+        history.pushState("", document.title, id);
+    }
+}
+
 
 /**
  * Scroll based navigation on bigger screen sizes
@@ -62,14 +79,7 @@ function scrollNavInit() {
             id = id.startsWith("/") ? id.substr(1) : id;
             if ($(id).length > 0) {
                 e.preventDefault();
-
-                // trigger scroll
-                controller.scrollTo(id);
-
-                // if supported by the browser we can even update the URL.
-                if (window.history && window.history.pushState) {
-                    history.pushState("", document.title, id);
-                }
+                scrollToId(id);
             }
         });
     }

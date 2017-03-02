@@ -42,3 +42,36 @@ a {
 .vertical-center {
   @include vertical-center;
 }
+
+%clear-btn {
+  cursor: pointer;
+  box-sizing: content-box;
+  background: none;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  line-height: normal;
+  overflow: visible;
+  padding: 0;
+  -webkit-user-select: none; /* for button */
+  -moz-user-select: none;
+  -ms-user-select: none;
+
+  &::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.scroll {
+  @include grid-column(12);
+  text-align: center;
+}
+
+.scroll-button {
+  @extend %clear-btn;
+}
