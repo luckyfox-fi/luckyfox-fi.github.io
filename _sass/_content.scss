@@ -203,15 +203,16 @@
 }
 
 .contact__image {
-  border-radius: 50%;
-  height: 120px;
-  text-align: center;
   @include grid-column(8);
   @include grid-push(2);
   @include grid-media($medium-grid) {
     @include grid-column(4);
   }
 
+  img {
+    border-radius: 50%;
+    height: 120px;
+  }
 }
 
 .contact__description {
