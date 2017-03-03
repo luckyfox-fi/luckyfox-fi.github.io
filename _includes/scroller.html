@@ -1,5 +1,5 @@
 <div class="scroll">
-    <button class="scroll-button" data-href="{{ include.href }}">
-        <img src="/images/scroll.svg" alt="" width="70" height="70">
+    <button class="scroll__button {% if include.altStyle %}scroll__button--alt{% endif %}" data-href="{{ include.href }}">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 74 74" width="70" height="70"><defs><style>.scroll__element{fill:#fff;}</style></defs><path class="scroll__element" d="M37,73A36,36,0,1,1,73,37,36,36,0,0,1,37,73ZM37,3A34,34,0,1,0,71,37,34,34,0,0,0,37,3Z"/><polygon class="scroll__element" points="36.63 45.89 22.6 33.2 23.94 31.71 36.63 43.2 49.33 31.71 50.67 33.2 36.63 45.89"/></svg>
     </button>
 </div>

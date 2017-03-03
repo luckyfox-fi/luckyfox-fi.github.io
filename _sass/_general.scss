@@ -72,6 +72,23 @@ a {
   text-align: center;
 }
 
-.scroll-button {
+.scroll__button {
   @extend %clear-btn;
+
+  &:hover, &:active {
+    .scroll__element {
+      fill: $hover-color;
+    }
+  }
 }
+
+.scroll__element {
+  fill: #fff;
+}
+
+.scroll__button--alt {
+  .scroll__element {
+    fill: $black;
+  }
+}
+

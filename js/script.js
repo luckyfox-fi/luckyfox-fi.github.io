@@ -47,7 +47,7 @@ function stickyHeaderInit() {
 }
 
 function bindSectionScrollers() {
-    $('.scroll-button').click(function() {
+    $('.scroll__button').click(function() {
         var id = $(this).data('href');
         controller.scrollTo(id);
     });
