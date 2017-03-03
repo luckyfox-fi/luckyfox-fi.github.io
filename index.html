@@ -1,7 +1,7 @@
 ---
 layout: frontpage
 ---
-<div class="container">
+<div class="container section section--short">
     <div class="hero">
         <img src="/images/fox.svg" alt="" class="hero__image">
         <p>A quick brown fox jumps over the lazy dog<br/> and changes your view of the digital world</p>
@@ -9,10 +9,7 @@ layout: frontpage
     {% include scroller.html href="#hungry-fox" %}
 </div>
 
-
-
-
-<div id="hungry-fox" class="hungry">
+<div id="hungry-fox" class="hungry section">
     {% include picture.html cssClass="hungry__image" alt="Hungry fox" medium="/images/sections/stalking-fox-XL-1x.jpg, /images/sections/stalking-fox-XL-2x.jpg 2x"
     small="/images/sections/stalking-fox-S-1x.jpg, /images/sections/stalking-fox-S-2x.jpg 2x, /images/sections/stalking-fox-S-3x.jpg 3x" %}
     <div class="container">
@@ -24,10 +21,11 @@ layout: frontpage
                 <a href="#contact-us">give us a shout</a>.
             </p>
         </div>
+        {% include scroller.html href="#i-need-a-job" %}
     </div>
 </div>
 
-<div id="i-need-a-job" class="wanted">
+<div id="i-need-a-job" class="wanted section">
     <div class="container">
         <div class="wanted__text">
             <h1>Most wanted foxes</h1>
@@ -53,7 +51,7 @@ layout: frontpage
     </div>
 </div>
 
-<div id="i-need-an-expert" class="hunting">
+<div id="i-need-an-expert" class="hunting section">
     {% include picture.html cssClass="hunting__image" alt="Hunting" medium="/images/sections/peeking-fox-XL-1x.jpg"
     small="/images/sections/peeking-fox-S-1x.jpg, /images/sections/peeking-fox-S-2x.jpg 2x, /images/sections/peeking-fox-S-3x.jpg 3x" %}
     <div class="container">
@@ -71,10 +69,11 @@ layout: frontpage
                 </p>
             </div>
         </div>
+        {% include scroller.html href="#contact-us" %}
     </div>
 </div>
 
-<div id="contact-us" class="contacts">
+<div id="contact-us" class="contacts section">
     <div class="container h-card">
         <h1>Foxiest of the foxes</h1>
         {% for contact in site.data.contacts %}

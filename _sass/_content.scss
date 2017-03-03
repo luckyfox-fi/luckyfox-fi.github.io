@@ -1,3 +1,12 @@
+.section {
+  min-height: 100vh;
+  position: relative;
+}
+
+.section--short {
+  min-height: 70vh;
+}
+
 .hero {
   @include grid-column(12);
   @include grid-media($medium-grid) {

@@ -68,7 +68,11 @@ a {
 }
 
 .scroll {
-  @include grid-column(12);
+  position: absolute;
+  bottom: 7%;
+  display: block;
+  width: 100%;
+  //@include grid-column(12);
   text-align: center;
 }
 
