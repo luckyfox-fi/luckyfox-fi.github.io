@@ -162,6 +162,15 @@
   }
 }
 
+.hunting__image-bottom {
+  img {
+    width: 100%;
+  }
+  @include grid-media($large-grid) {
+    display: none;
+  }
+}
+
 .contacts {
   @include grid-column(12);
   h1 {text-align: center;}
