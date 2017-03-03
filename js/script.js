@@ -19,6 +19,7 @@ function pageInit() {
 function resizeHandler() {
     mobileNavInit();
     scrollNavInit();
+    $('.header').width($(window).width());
 }
 
 function jobDescriptionToggler() {
