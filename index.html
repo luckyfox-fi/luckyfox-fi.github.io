@@ -38,7 +38,7 @@ layout: frontpage
             {% for job in site.data.jobs %}
             <div class="job job-{{ forloop.index }}">
                 <span class="job__open">
-                    <h3 class="job__title">{{ job.name }}</h3>
+                    <h2 class="job__title">{{ job.name }}</h2>
                     <button class="job__button" id="{{ forloop.index }}">
                         <svg class="job__open-description" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34 34"><polygon points="17 25.63 2 12.07 5.34 8.37 17 18.91 28.66 8.37 32 12.07 17 25.63"/></svg>
                     </button>

@@ -14,7 +14,11 @@ body {
 
 h1 {
   font-family: $header-font-family;
+  font-size: $header-font-size-mobile;
   text-transform: uppercase;
+  @include grid-media($medium-grid) {
+      font-size: $header-font-size;
+  }
 }
 
 a {
@@ -95,4 +99,3 @@ a {
     fill: $black;
   }
 }
-
