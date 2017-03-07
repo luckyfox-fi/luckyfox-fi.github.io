@@ -4,7 +4,7 @@ layout: frontpage
 <div class="container section section--short">
     <div class="hero">
         <img src="/images/fox.svg" alt="" class="hero__image">
-        <p>A quick brown fox jumps over the lazy dog<br/> and changes your view of the digital world</p>
+        <p>A quick brown fox jumps over the lazy dog<br> and changes your view of the digital world</p>
     </div>
     {% include scroller.html href="#hungry-fox" %}
 </div>
@@ -14,7 +14,7 @@ layout: frontpage
     small="/images/sections/stalking-fox-S-1x.jpg, /images/sections/stalking-fox-S-2x.jpg 2x, /images/sections/stalking-fox-S-3x.jpg 3x" %}
     <div class="container">
         <div class="hungry__content">
-            <h1>Hungry like a fox</h1>
+            <h1>Hungry like a fox?</h1>
             <p>
                 We’re looking for the new generation of digital thinkers.
                 If creating next level digital services floats your boat,
@@ -28,7 +28,7 @@ layout: frontpage
 <div id="i-need-a-job" class="wanted section">
     <div class="container">
         <div class="wanted__text">
-            <h1>Most wanted foxes</h1>
+            <h1>Most wanted<br>foxes</h1>
             <p>
                 Lucky Fox is specialized in bringing together the top notch digital natives with customers, who are in need of getting their business running faster, website looking better and digital services working like a dream. If you’re a digital mastermind looking for an encouraging workplace with a good flow, great benefits, interesting projects and possibilities to grow and develop, this is it.
             </p>
@@ -37,8 +37,8 @@ layout: frontpage
             </p>
             {% for job in site.data.jobs %}
             <div class="job job-{{ forloop.index }}">
-                <span>
-                    <h3 class="job__title">{{ job.name }}</h3>
+                <span class="job__open">
+                    <h2 class="job__title">{{ job.name }}</h2>
                     <button class="job__button" id="{{ forloop.index }}">
                         <svg class="job__open-description" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34 34"><polygon points="17 25.63 2 12.07 5.34 8.37 17 18.91 28.66 8.37 32 12.07 17 25.63"/></svg>
                     </button>
@@ -71,25 +71,28 @@ layout: frontpage
         </div>
         {% include scroller.html href="#contact-us" %}
     </div>
+    {% include picture.html cssClass="hunting__image-bottom" alt="" small="/images/sections/foliage-S-1x.jpg, /images/sections/foliage-S-2x.jpg 2x, /images/sections/foliage-S-3x.jpg 3x" %}
 </div>
 
 <div id="contact-us" class="contacts section">
-    <div class="container h-card">
-        <h1>Foxiest of the foxes</h1>
-        {% for contact in site.data.contacts %}
-        <div class="contact contact__{{ contact.id }}">
-            <div class="contact__image">
-                <img class="u-photo" src="{{ contact.image }}" alt="{{ contact.name }}" />
+    <div class="container">
+        <div class="contacts__all">
+            <h1>Foxiest of the foxes</h1>
+            {% for contact in site.data.contacts %}
+            <div class="contact contact__{{ contact.id }} h-card">
+                <div class="contact__image">
+                    <img class="u-photo" src="{{ contact.image }}" alt="{{ contact.name }}" />
+                </div>
+                <div class="contact__info">
+                    <h3 class="p-name">{{ contact.name }}</h3>
+                    <span class="u-email">{{ contact.email }}</span><br>
+                    <span class="p-tel">{{ contact.phone }}</span>
+                </div>
+                <div class="contact__description">
+                    <p class="p-note">{{ contact.description }}</p>
+                </div>
             </div>
-            <div class="contact__info">
-                <h3 class="p-name">{{ contact.name }}</h3>
-                <span class="u-email">{{ contact.email }}</span></br>
-                <span class="p-tel">{{ contact.phone }}</span>
-            </div>
-            <div class="contact__description">
-                <p class="p-note">{{ contact.description }}</p>
-            </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
 </div>

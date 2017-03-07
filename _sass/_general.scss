@@ -14,7 +14,11 @@ body {
 
 h1 {
   font-family: $header-font-family;
+  font-size: $header-font-size-mobile;
   text-transform: uppercase;
+  @include grid-media($medium-grid) {
+      font-size: $header-font-size;
+  }
 }
 
 a {
@@ -69,7 +73,7 @@ a {
 
 .scroll {
   position: absolute;
-  bottom: 7%;
+  bottom: 5%;
   display: block;
   width: 100%;
   //@include grid-column(12);
@@ -95,4 +99,3 @@ a {
     fill: $black;
   }
 }
-
