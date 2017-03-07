@@ -83,4 +83,9 @@
 .footer__info {
   @include grid-column(12);
   float: none;
+  @include grid-media($extra-large-grid) {
+    @include grid-column(8);
+    @include grid-push(2);
+    float: none;
+  }
 }
