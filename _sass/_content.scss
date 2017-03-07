@@ -35,10 +35,37 @@
   h1 { line-height: 1.25em; }
 }
 
+.hungry.section {
+  max-height: 100%;
+  min-height: 50%;
+  overflow: hidden;
+}
+
 .hungry__image {
   display: block;
   height: auto;
-  img { width: 100%; }
+  overflow: hidden;
+  width: 100vw;
+  img {
+    width: 100%;
+    height: auto;
+    @include grid-media($medium-grid) {
+      max-height: 100vh;
+      left: -20%;
+      position: relative;
+      width: auto;
+    }
+    @include grid-media($large-grid) {
+      height: auto;
+      left: 0;
+      width: 100vw;
+    }
+    @include grid-media($extra-large-grid) {
+    height: auto;
+    max-height: 100%;
+    width: 100%
+    }
+  }
 }
 
 .hungry__content {
