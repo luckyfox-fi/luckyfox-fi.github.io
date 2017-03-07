@@ -31,7 +31,7 @@ function jobDescriptionToggler() {
 function stickyHeaderInit() {
     var stickyHeader = new ScrollMagic.Scene({duration: 240})
         .setPin(".header", {
-            pushFollowers: true,
+            pushFollowers: false,
             spacerClass: "header__pin"
         })
         .addTo(controller);
@@ -93,7 +93,7 @@ function scrollNavInit() {
 function mobileNavInit() {
     var header = $('.header');
     var mobileClass = 'header--mobile';
-    if (window.matchMedia('(max-width: 768px)').matches) {
+    if (window.matchMedia('(max-width: 767px)').matches) {
         header.addClass(mobileClass);
 
         $('.header__mobile-nav-btn--open').click(function() {
@@ -125,7 +125,7 @@ function showMobileNav(open) {
         openIcon.hide();
         navList.show();
         closeIcon.show();
-
+        header.css( 'height', '100vh' );
         header.on('touchmove', function(event) {
             event.preventDefault();
         });
@@ -136,5 +136,6 @@ function showMobileNav(open) {
         navList.hide();
         closeIcon.hide();
         openIcon.show();
+        header.css( 'height', 'auto' );
     }
 }

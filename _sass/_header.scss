@@ -1,15 +1,20 @@
 .header {
-  padding-top: 40px;
+  background: $background-color;
   font-family: $header-font-family;
+  padding-top: 40px;
+  z-index: 2;
 }
 
 .header__title {
   h1 {
     margin: 0;
   }
-
   @include grid-column(6, $header-grid);
   @include grid-push(1, $header-grid);
+  @include grid-media($medium-grid) {
+      @include grid-column(3, $header-grid);
+      @include grid-push(1, $header-grid);
+  }
   @include grid-media($extra-large-grid) {
     @include grid-column(5, $header-grid);
     @include grid-push(2, $header-grid);
@@ -17,25 +22,29 @@
 }
 
 .header__navigation {
-  @include grid-column(8, $header-grid);
   text-align: right;
-
+  @include grid-media($medium-grid) {
+     @include grid-column(12, $header-grid);
+  }
+  @include grid-media($large-grid) {
+    @include grid-column(11, $header-grid);
+  }
   @include grid-media($extra-large-grid) {
     @include grid-column(7, $header-grid);
   }
 }
 
 .header__logo {
-  width: 145px;
   height: auto;
+  width: 145px;
 }
 
 .header__navigation {
   text-transform: uppercase;
 
   ul {
-    list-style-type: none;
     display: none;
+    list-style-type: none;
 
     li {
       display: inline;
