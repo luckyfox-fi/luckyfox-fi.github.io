@@ -6,17 +6,18 @@
 .section--short {
   max-height: 100%;
   min-height: 70vh;
+  @include grid-media($large-grid) { min-height: 60vh; }
 }
 
 .hero {
   @include grid-column(12);
   margin-bottom: 100px;
   margin-top: 3em;
+  text-align: center;
   @include grid-media($large-grid) {
     @include grid-column(6);
     @include grid-push(3);
   }
-  text-align: center;
 }
 
 .hero__image {
@@ -40,12 +41,9 @@
 
 .hungry__image {
   display: block;
-  height: auto;
-  overflow: hidden;
-  width: auto;
   img {
-    width: 100%;
     height: auto;
+    width: 100%;
     @include grid-media($medium-grid) {
       max-height: 100vh;
       left: -20%;
@@ -58,7 +56,6 @@
       width: 100vw;
     }
     @include grid-media($extra-large-grid) {
-    height: auto;
     max-height: 100%;
     width: 100%
     }
@@ -70,6 +67,8 @@
   @include grid-push(4);
   position: absolute;
   top: 10%;
+  h1 { @include grid-media($large-grid) { white-space: nowrap; } }
+  p { @include grid-media($extra-large-grid) { width: 60%; } }
   @include grid-media($small-grid) {
     @include grid-column(7);
     @include grid-push(4);
@@ -77,11 +76,6 @@
   @include grid-media($large-grid) {
     @include grid-column(5);
     @include grid-push(5);
-  }
-  p {
-    @include grid-media($extra-large-grid) {
-      width: 60%;
-    }
   }
 }
 
@@ -92,8 +86,8 @@
 
 .wanted__text {
   margin-bottom: 100px;
-  padding-top: 3em;
   padding-bottom: 3em;
+  padding-top: 3em;
   @include grid-column(10);
   @include grid-push(1);
   @include grid-media($medium-grid) {
@@ -107,9 +101,7 @@
   }
 }
 
-.job__open {
-  display: inline-flex;
-}
+.job__open { display: inline-flex; }
 
 .job__button, .job__button:focus {
   cursor: pointer;
@@ -118,9 +110,9 @@
   outline: 0;
 }
 
-.job__description, .job__title, .job__open-description {
-  transition: all 1s;
-}
+.job__open-description { height: 20px; }
+
+.job__description, .job__title, .job__open-description { transition: all 1s; }
 
 .job__description {
   margin: 0;
@@ -128,19 +120,12 @@
   overflow: hidden;
 }
 
-.job__open-description {
-  height: 20px;
-}
-
 .job--open {
   .job__description {
     max-height: 100vh;
-    margin-bottom: 30px;
     overflow: visible;
   }
-  .job__title {
-    color: $brand-color;
-  }
+  .job__title { color: $brand-color; }
   .job__open-description {
     fill: $brand-color;
     transform: rotate(180deg);
@@ -150,6 +135,18 @@
 .hunting__text {
   margin-bottom: 100px;
   @include grid-column(12);
+  @include grid-media($small-grid) {
+    @include grid-column(10);
+    @include grid-push(1);
+  }
+  @include grid-media($medium-grid) { padding-bottom: 5%; }
+  @include grid-media($large-grid) {
+    margin-bottom: 0;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 20px;
+    width: 30%;
+  }
   h1 {
     height: 20px;
     margin-bottom: 0;
@@ -159,44 +156,30 @@
     position: relative;
     text-align: center;
     top: -220px;
-    @include grid-media($small-grid) {
-      top: -300px;
-    }
-    @include grid-media($medium-grid) {
-      top: -450px;
-    }
+    @include grid-media($small-grid) { top: -300px; }
+    @include grid-media($medium-grid) { top: -450px; }
     @include grid-media($large-grid) {
       height: auto;
       text-align: left;
       top: auto;
-      width: 90%;
     }
-    @include grid-media($extra-large-grid) {
-      width: 60%;
-    }
-  }
-  @include grid-media($small-grid) {
-    @include grid-column(10);
-    @include grid-push(1);
-  }
-  @include grid-media($medium-grid) {
-    padding-bottom: 5%;
-  }
-  @include grid-media($large-grid) {
-    margin-bottom: 0;
-    margin-left: 3vw;
-    margin-right: 3vw;
-    margin-top: 20px;
-    width: 30%;
+    @include grid-media($extra-large-grid) { width: 60%; }
   }
 }
 
 .hunting__image {
-  float: left;
   height: auto;
   max-height: 400px;
   overflow: hidden;
   width: 100%;
+  @include grid-media($medium-grid) {
+    float: left;
+    max-height: 100%;
+  }
+  @include grid-media($large-grid) {
+    overflow: hidden;
+    width: 60%;
+  }
   img {
     width: 100%;
     @include grid-media($large-grid) {
@@ -213,11 +196,6 @@
       width: 100%;
     }
   }
-  @include grid-media($medium-grid) { max-height: 100%; }
-  @include grid-media($large-grid) {
-    overflow: hidden;
-    width: 60%;
-  }
 }
 
 .hunting__image-bottom {
@@ -232,9 +210,7 @@
     @include grid-column(10);
     @include grid-push(1);
   }
-  @include grid-media($large-grid) {
-    @include grid-column(12);
-  }
+  @include grid-media($large-grid) { @include grid-column(12); }
   @include grid-media($extra-large-grid) {
     @include grid-column(8);
     @include grid-push(2);
@@ -245,9 +221,7 @@
       padding-left: 25px;
       text-align: left;
     }
-    @include grid-media($extra-large-grid) {
-      @include grid-column(8);
-    }
+    @include grid-media($extra-large-grid) { @include grid-column(8); }
   }
 }
 
@@ -255,6 +229,11 @@
   @include grid-column(12);
   margin-bottom: 2em;
   margin-top: 2em;
+  @include grid-media($medium-grid) {
+    @include grid-column(10);
+    @include grid-push(1);
+  }
+  @include grid-media($large-grid) { @include grid-column(6); }
   h3 {
     margin: 10px;
     @include grid-media($large-grid) {
@@ -263,19 +242,7 @@
       width: 100%;
     }
   }
-  &:last-child {
-    padding-bottom: 2em;
-  }
-  @include grid-media($medium-grid) {
-    @include grid-column(10);
-    @include grid-push(1);
-  }
-  @include grid-media($large-grid) {
-    @include grid-column(6);
-  }
-  @include grid-media($extra-large-grid) {
-    @include grid-column(6);
-  }
+  &:last-child { padding-bottom: 2em; }
 }
 
 .contact__info {
@@ -287,21 +254,18 @@
     margin-top: 1em;
     text-align: left;
   }
-  @include grid-media($extra-large-grid) {
-    @include grid-column(6);
-  }
 }
 
 .contact__image {
-  width: 100%;
   margin: 0;
+  width: 100%;
+  @include grid-media($large-grid) { @include grid-column(5); }
   img {
     border-radius: 50%;
     height: 130px;
     @include grid-media($medium-grid) { height: 160px; }
     @include grid-media($large-grid) { float: left; }
   }
-  @include grid-media($large-grid) { @include grid-column(5); }
 }
 
 .contact__description {
