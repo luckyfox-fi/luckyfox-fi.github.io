@@ -33,32 +33,21 @@
 }
 
 .hungry.section {
-  max-height: 100%;
-  min-height: 50%;
-  overflow: hidden;
-  width: 100%;
+  min-height: 100%;
+  @include grid-media($medium-grid) {
+    max-height: 100%;
+    min-height: 50%;
+    overflow: hidden;
+    width: 100%;
+  }
 }
 
 .hungry__image {
   display: block;
   img {
     height: auto;
-    width: 100%;
-    @include grid-media($medium-grid) {
-      max-height: 100vh;
-      left: -20%;
-      position: relative;
-      width: auto;
-    }
-    @include grid-media($large-grid) {
-      height: auto;
-      left: 0;
-      width: 100vw;
-    }
-    @include grid-media($extra-large-grid) {
-    max-height: 100%;
-    width: 100%
-    }
+    left: 0;
+    width: 100vw;
   }
 }
 
@@ -181,6 +170,7 @@
     width: 60%;
   }
   img {
+    height: auto;
     width: 100%;
     @include grid-media($large-grid) {
       height: 100%;
