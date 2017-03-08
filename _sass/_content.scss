@@ -130,7 +130,7 @@
     @include grid-push(1);
   }
   @include grid-media($medium-grid) { padding-bottom: 5%; }
-  @include grid-media($large-grid) {
+  @include grid-media($hunting-grid) {
     margin-bottom: 0;
     margin-left: 5%;
     margin-right: 5%;
@@ -139,21 +139,17 @@
   }
   h1 {
     height: 20px;
-    margin-bottom: 0;
-    margin-left: 0;
-    margin-top: 0;
-    padding-top: 1em;
     position: relative;
     text-align: center;
-    top: -220px;
-    @include grid-media($small-grid) { top: -300px; }
-    @include grid-media($medium-grid) { top: -450px; }
-    @include grid-media($large-grid) {
+    white-space: nowrap;
+    @include grid-media($medium-grid) {
+      white-space: normal;
+    }
+    @include grid-media($hunting-grid) {
       height: auto;
       text-align: left;
-      top: auto;
+      width: 100%;
     }
-    @include grid-media($extra-large-grid) { width: 60%; }
   }
 }
 
@@ -166,25 +162,19 @@
     float: left;
     max-height: 100%;
   }
-  @include grid-media($large-grid) {
+  @include grid-media($hunting-grid) {
+    height: 100vh;
     overflow: hidden;
     width: 60%;
   }
   img {
-    height: auto;
+    height: 100%;
     width: 100%;
-    @include grid-media($large-grid) {
-      height: 100%;
-      left: -30%;
-      max-height: 850px;
+    @include grid-media($hunting-grid) {
+      height: 100vh;
+      max-height: 100%;
       position: relative;
       width: auto;
-    }
-    @include grid-media($extra-large-grid) {
-      height: auto;
-      left: 0;
-      max-height: 100%;
-      width: 100%;
     }
   }
 }
