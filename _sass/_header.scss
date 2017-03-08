@@ -35,8 +35,12 @@
 }
 
 .header__logo {
-  height: auto;
-  width: 145px;
+  height: 60px;
+  width: auto;
+  @include grid-media($medium-grid) {
+    height: auto;
+    width: 145px;
+  }
 }
 
 .header__navigation {
