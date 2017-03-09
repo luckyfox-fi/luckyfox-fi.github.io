@@ -15,6 +15,7 @@ function pageInit() {
     jobDescriptionToggler();
     bindSectionScrollers();
     moveHuntingHeader();
+    floatingButton();
 }
 
 function resizeHandler() {
@@ -81,7 +82,26 @@ function scrollToId(id) {
     }
 }
 
+function floatingButton() {
+    $(window).scroll(function() {
+        $('.wanted .scroll__button').hide();
+        $('.hunting .scroll__button').hide();
+        var scrolling = $(window).scrollTop() + $(window).height();
+        var $wantedSection = $('.wanted');
+        var $huntingSection = $('.hunting');
+        var wantedBottom = $wantedSection.position().top + $wantedSection.outerHeight(true);
+        var huntingBottom =  $huntingSection.position().top + $huntingSection.outerHeight(true);
 
+        if (scrolling >= (wantedBottom - ($wantedSection.height() / 2))) {
+            $('.wanted .scroll__button').show();
+            if (scrolling >= wantedBottom ) { $('.wanted .scroll__button').hide(); }
+        }
+       if (scrolling >= (huntingBottom - ($huntingSection.height() / 4))) {
+            $('.hunting .scroll__button').show();
+            if (scrolling >= huntingBottom ) { $('.hunting .scroll__button').hide(); }
+        }
+    });
+}
 
 /**
  * Scroll based navigation on bigger screen sizes

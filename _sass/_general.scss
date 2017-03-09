@@ -94,6 +94,20 @@ a {
     }
   }
 }
+.wanted, .hunting  {
+  .scroll__button {
+    display: none;
+  }
+  .scroll {
+    bottom: 0;
+    display: block;
+    position: fixed;
+    width: 100%;
+    //@include grid-column(12);
+    text-align: center;
+  }
+
+}
 
 .scroll__element {
   fill: #fff;
