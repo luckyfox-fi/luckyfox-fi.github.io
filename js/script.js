@@ -14,6 +14,9 @@ function pageInit() {
     stickyHeaderInit();
     jobDescriptionToggler();
     bindSectionScrollers();
+    huntingHeader();
+    moveHuntingHeader();
+    moveHeader();
 }
 
 function resizeHandler() {
@@ -47,8 +50,31 @@ function stickyHeaderInit() {
     });
 }
 
+
+function huntingHeader() {
+    moveHuntingHeader();
+    $( window ).resize(function() {
+        moveHuntingHeader();
+    });
+}
+
+function moveHuntingHeader() {
+    var img = $('.hunting__image').children('img');
+    var h1Height = img.height() / 3 * 2;
+    if ($(window).width() < 1025){
+        moveHeader(-h1Height);
+    } else {
+        var t = '-' + $('.hunting__text').width() / 2 + 'px';
+        img.css('left', t);
+    }
+}
+
+function moveHeader(h1Height) {
+    $('.hunting__text').children('h1').css('top', h1Height);
+}
+
 function bindSectionScrollers() {
-    $('.scroll__button').click(function() {
+    $('.scroll__button').on('click touch', function() {
         var id = $(this).data('href');
         controller.scrollTo(id);
     });
@@ -62,6 +88,7 @@ function scrollToId(id) {
         history.pushState("", document.title, id);
     }
 }
+
 
 
 /**

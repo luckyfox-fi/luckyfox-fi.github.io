@@ -1,19 +1,20 @@
 .header {
   background: $background-color;
   font-family: $header-font-family;
-  padding-top: 40px;
+  padding-top: 20px;
   z-index: 2;
+  @include grid-media($medium-grid) {
+    padding-top: 40px;
+  }
 }
 
 .header__title {
-  h1 {
-    margin: 0;
-  }
-  @include grid-column(6, $header-grid);
-  @include grid-push(1, $header-grid);
+  h1 { margin: 0; }
+  @include grid-column(7, $header-grid);
+  margin-left: 20px;
   @include grid-media($medium-grid) {
-      @include grid-column(3, $header-grid);
-      @include grid-push(1, $header-grid);
+    @include grid-column(3, $header-grid);
+    @include grid-push(1, $header-grid);
   }
   @include grid-media($extra-large-grid) {
     @include grid-column(5, $header-grid);
@@ -25,6 +26,7 @@
   text-align: right;
   @include grid-media($medium-grid) {
      @include grid-column(12, $header-grid);
+     margin: auto;
   }
   @include grid-media($large-grid) {
     @include grid-column(11, $header-grid);
@@ -35,8 +37,12 @@
 }
 
 .header__logo {
-  height: auto;
-  width: 145px;
+  height: 60px;
+  width: auto;
+  @include grid-media($medium-grid) {
+    height: auto;
+    width: 145px;
+  }
 }
 
 .header__navigation {
@@ -99,12 +105,13 @@
 .header__mobile-nav-btn {
   z-index: 5;
   position: absolute;
-  top: 40px;
-  right: 50px;
+  right: 20px;
+  top: 35px;
   @extend %clear-btn;
 
   @include grid-media($medium-grid) {
     display: none;
+    right: 30px;
   }
 }
 
