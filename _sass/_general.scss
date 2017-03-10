@@ -88,11 +88,27 @@ a {
       height: 70px;
     }
   }
-  &:hover, &:active {
-    .scroll__element {
-      fill: $hover-color;
+  @include grid-media($large-grid) {
+    &:hover, &:active {
+      .scroll__element {
+        fill: $hover-color;
+      }
     }
   }
+}
+.wanted, .hunting  {
+  .scroll__button {
+      display: inline-block;
+  }
+  .scroll {
+    bottom: 0;
+    display: block;
+    position: fixed;
+    width: 100%;
+    //@include grid-column(12);
+    text-align: center;
+  }
+
 }
 
 .scroll__element {
