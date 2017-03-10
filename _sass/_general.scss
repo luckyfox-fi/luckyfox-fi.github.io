@@ -88,15 +88,17 @@ a {
       height: 70px;
     }
   }
-  &:hover, &:active {
-    .scroll__element {
-      fill: $hover-color;
+  @include grid-media($large-grid) {
+    &:hover, &:active {
+      .scroll__element {
+        fill: $hover-color;
+      }
     }
   }
 }
 .wanted, .hunting  {
   .scroll__button {
-    display: none;
+      display: inline-block;
   }
   .scroll {
     bottom: 0;
