@@ -81,7 +81,7 @@ function moveHeader(h1Height) {
 }
 
 function bindSectionScrollers() {
-    $('.scroll__button').on('click touch', function() {
+    $('.scroll__button').on('click', function() {
         var id = $(this).data('href');
         controller.scrollTo(id);
     });
@@ -102,22 +102,20 @@ function scrollToId(id) {
  * Scroll based navigation on bigger screen sizes
  */
 function scrollNavInit() {
-    if (!window.matchMedia('(max-width: 768px)').matches) {
-        // change behaviour of controller to animate scroll instead of jump
-        controller.scrollTo(function (newpos) {
-            TweenMax.to(window, 0.5, {scrollTo: {y: newpos}});
-        });
+     // change behaviour of controller to animate scroll instead of jump
+     controller.scrollTo(function (newpos) {
+         TweenMax.to(window, 0.5, {scrollTo: {y: newpos}});
+     });
 
-        //  bind scroll to anchor links
-        $('a[href*=\\#]').click(function (e) {
-            var id = $(this).attr("href");
-            id = id.startsWith("/") ? id.substr(1) : id;
-            if ($(id).length > 0) {
-                e.preventDefault();
-                scrollToId(id);
-            }
-        });
-    }
+     //  bind scroll to anchor links
+     $('a[href*=\\#]').on('click', function (e) {
+         var id = $(this).attr("href");
+         id = id.startsWith("/") ? id.substr(1) : id;
+         if ($(id).length > 0) {
+             e.preventDefault();
+             scrollToId(id);
+         }
+     });
 }
 
 

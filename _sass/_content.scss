@@ -166,7 +166,6 @@
   }
   @include grid-media($hunting-grid) {
     height: 100vh;
-    overflow: hidden;
     width: 60%;
   }
   img {
