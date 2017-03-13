@@ -1,8 +1,7 @@
-title: Luckyfox.fi
-description: > # this means to ignore newlines until "baseurl:"
-  Luckyfox
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://luckyfox.fi" # the base hostname & protocol for your site
+title: Luckyfox | Foxiest digital masterminds
+description: Foxiest digital masterminds
+baseurl: ""
+url: "https://luckyfox.fi"
 
 # Build settings
 markdown: kramdown
