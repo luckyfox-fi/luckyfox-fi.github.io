@@ -76,21 +76,32 @@ a {
   display: block;
   position: absolute;
   width: 100%;
-  //@include grid-column(12);
   text-align: center;
 }
 
 .scroll__button {
   @extend %clear-btn;
+
   svg {
     height: 50px;
     @include grid-media($medium-grid) {
       height: 70px;
     }
   }
-  &:hover, &:active {
+
+  &:active {
     .scroll__element {
       fill: $hover-color;
+    }
+  }
+}
+
+@media (hover: hover) {
+  .scroll__button {
+    &:hover {
+      .scroll__element {
+        fill: $hover-color;
+      }
     }
   }
 }
