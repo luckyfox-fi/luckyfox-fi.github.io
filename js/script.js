@@ -16,6 +16,7 @@ function pageInit() {
     jobDescriptionToggler();
     bindSectionScrollers();
     moveHuntingHeader();
+    floatingButton();
 }
 
 function resizeHandler() {
@@ -84,7 +85,30 @@ function scrollToId(id) {
     }
 }
 
+function floatingButton() {
+    var lastScrollTop = 0;
+    $(window).scroll(function() {
+        var scrollTop = $(this).scrollTop();
+        var scrollBottom = scrollTop + $(window).height();
+        var isScrollingDown = true;
+        var $wantedSection = $('.wanted');
+        var $huntingSection = $('.hunting');
+        var wantedBottom = $wantedSection.position().top + $wantedSection.outerHeight(true);
+        var huntingBottom =  $huntingSection.position().top + $huntingSection.outerHeight(true);
 
+        isScrollingDown = scrollTop > lastScrollTop ? true : false;
+        lastScrollTop = scrollTop;
+        buttonVisibility('.wanted', wantedBottom, isScrollingDown, scrollBottom);
+        buttonVisibility('.hunting', huntingBottom, isScrollingDown, scrollBottom);
+   });
+}
+
+function buttonVisibility(className, sectionBottom, isScrollingDown, scrollBottom) {
+   var element = $(className + ' .scroll__button');
+    if ((scrollBottom >= (sectionBottom * 0.98)) && (scrollBottom <= sectionBottom * 1.15)) {
+        if (element.is( ':hidden' ) && isScrollingDown ) { element.slideDown(250); }
+    } else { element.slideUp(250); }
+}
 
 /**
  * Scroll based navigation on bigger screen sizes
