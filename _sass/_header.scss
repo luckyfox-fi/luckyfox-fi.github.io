@@ -2,10 +2,8 @@
   background: $background-color;
   font-family: $header-font-family;
   padding-top: 20px;
+  padding-bottom: 20px;
   z-index: 2;
-  @include grid-media($medium-grid) {
-    padding-top: 40px;
-  }
 }
 
 .header__title {
@@ -23,9 +21,11 @@
 }
 
 .header__navigation {
+  height: 60px;
   text-align: right;
   @include grid-media($medium-grid) {
      @include grid-column(12, $header-grid);
+     height: 88px;
      margin: auto;
   }
   @include grid-media($large-grid) {
