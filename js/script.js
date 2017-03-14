@@ -7,6 +7,7 @@ $(function () {
 });
 
 var controller = new ScrollMagic.Controller();
+var header = $('.header');
 
 function pageInit() {
     mobileNavInit();
@@ -22,7 +23,7 @@ function pageInit() {
 function resizeHandler() {
     mobileNavInit();
     scrollNavInit();
-    $('.header').width($(window).width());
+    header.width($(window).width());
 }
 
 function jobDescriptionToggler() {
@@ -40,7 +41,6 @@ function stickyHeaderInit() {
         .addTo(controller);
 
     stickyHeader.on('end', function (event) {
-        var header = $('.header');
         if (event.scrollDirection === 'FORWARD') {
             TweenMax.to(header, 0.2, {opacity: 0});
         }
@@ -48,8 +48,15 @@ function stickyHeaderInit() {
             TweenMax.to(header, 0.4, {opacity: 1});
         }
     });
-}
 
+    var lastScrollTop = 0;
+    $(window).scroll( function() {
+        var scrollTop = $(this).scrollTop();
+        css =  scrollTop > lastScrollTop ? {'opacity': 0, 'top': 0, 'position': 'static', 'transition': '0.2s'} : {'opacity': 1, 'position': 'fixed', 'transition': '0.4s'};
+        header.css(css);
+        lastScrollTop = scrollTop;
+    });
+}
 
 function huntingHeader() {
     moveHuntingHeader();
@@ -118,7 +125,6 @@ function scrollNavInit() {
  * Mobile navigation
  */
 function mobileNavInit() {
-    var header = $('.header');
     var mobileClass = 'header--mobile';
     if (window.matchMedia('(max-width: 767px)').matches) {
         header.addClass(mobileClass);
@@ -141,7 +147,6 @@ function mobileNavInit() {
 }
 
 function showMobileNav(open) {
-    var header = $('.header');
     var openIcon = $('.header__mobile-nav-btn--open');
     var closeIcon = $('.header__mobile-nav-btn--close');
     var navList = $('.header__navigation ul');
