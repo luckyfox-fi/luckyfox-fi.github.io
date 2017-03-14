@@ -15,15 +15,15 @@ function pageInit() {
     stickyHeaderInit();
     jobDescriptionToggler();
     bindSectionScrollers();
-    huntingHeader();
     moveHuntingHeader();
-    moveHeader();
+    floatingButton();
 }
 
 function resizeHandler() {
     mobileNavInit();
     scrollNavInit();
     header.width($(window).width());
+    moveHuntingHeader();
 }
 
 function jobDescriptionToggler() {
@@ -58,30 +58,19 @@ function stickyHeaderInit() {
     });
 }
 
-function huntingHeader() {
-    moveHuntingHeader();
-    $( window ).resize(function() {
-        moveHuntingHeader();
-    });
-}
-
 function moveHuntingHeader() {
-    var img = $('.hunting__image').children('img');
+    h1 = $('.hunting__text h1');
+    var img = $('.hunting__image img');
     var h1Height = img.height() / 3 * 2;
-    if ($(window).width() < 1025){
-        moveHeader(-h1Height);
+    if ($(window).width() < 1500) {
+       h1.css('top', -h1Height);
     } else {
-        var t = '-' + $('.hunting__text').width() / 2 + 'px';
-        img.css('left', t);
+       h1.css('top', 0);
     }
 }
 
-function moveHeader(h1Height) {
-    $('.hunting__text').children('h1').css('top', h1Height);
-}
-
 function bindSectionScrollers() {
-    $('.scroll__button').on('click touch', function() {
+    $('.scroll__button').on('click', function() {
         var id = $(this).data('href');
         controller.scrollTo(id);
     });
@@ -96,30 +85,50 @@ function scrollToId(id) {
     }
 }
 
+function floatingButton() {
+    var lastScrollTop = 0;
+    $(window).scroll(function() {
+        var scrollTop = $(this).scrollTop();
+        var scrollBottom = scrollTop + $(window).height();
+        var isScrollingDown = true;
+        var $wantedSection = $('.wanted');
+        var $huntingSection = $('.hunting');
+        var wantedBottom = $wantedSection.position().top + $wantedSection.outerHeight(true);
+        var huntingBottom =  $huntingSection.position().top + $huntingSection.outerHeight(true);
 
+        isScrollingDown = scrollTop > lastScrollTop ? true : false;
+        lastScrollTop = scrollTop;
+        buttonVisibility('.wanted', wantedBottom, isScrollingDown, scrollBottom);
+        buttonVisibility('.hunting', huntingBottom, isScrollingDown, scrollBottom);
+   });
+}
+
+function buttonVisibility(className, sectionBottom, isScrollingDown, scrollBottom) {
+   var element = $(className + ' .scroll__button');
+    if ((scrollBottom >= (sectionBottom * 0.98)) && (scrollBottom <= sectionBottom * 1.15)) {
+        if (element.is( ':hidden' ) && isScrollingDown ) { element.slideDown(250); }
+    } else { element.slideUp(250); }
+}
 
 /**
  * Scroll based navigation on bigger screen sizes
  */
 function scrollNavInit() {
-    if (!window.matchMedia('(max-width: 768px)').matches) {
-        // change behaviour of controller to animate scroll instead of jump
-        controller.scrollTo(function (newpos) {
-            TweenMax.to(window, 0.5, {scrollTo: {y: newpos}});
-        });
+     // change behaviour of controller to animate scroll instead of jump
+     controller.scrollTo(function (newpos) {
+         TweenMax.to(window, 0.5, {scrollTo: {y: newpos}});
+     });
 
-        //  bind scroll to anchor links
-        $('a[href*=\\#]').click(function (e) {
-            var id = $(this).attr("href");
-            id = id.startsWith("/") ? id.substr(1) : id;
-            if ($(id).length > 0) {
-                e.preventDefault();
-                scrollToId(id);
-            }
-        });
-    }
+     //  bind scroll to anchor links
+     $('a[href*=\\#]').on('click', function (e) {
+         var id = $(this).attr("href");
+         id = id.startsWith("/") ? id.substr(1) : id;
+         if ($(id).length > 0) {
+             e.preventDefault();
+             scrollToId(id);
+         }
+     });
 }
-
 
 /**
  * Mobile navigation
