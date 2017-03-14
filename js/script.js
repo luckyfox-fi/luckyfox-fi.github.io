@@ -62,7 +62,7 @@ function moveHuntingHeader() {
     h1 = $('.hunting__text h1');
     var img = $('.hunting__image img');
     var h1Height = img.height() / 3 * 2;
-    if ($(window).width() < 1500) {
+    if ($(window).width() < 992) {
        h1.css('top', -h1Height);
     } else {
        h1.css('top', 0);

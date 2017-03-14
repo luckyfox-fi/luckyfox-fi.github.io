@@ -133,11 +133,13 @@
     @include grid-push(1);
   }
   @include grid-media($medium-grid) { padding-bottom: 5%; }
-  @include grid-media($extra-large-grid) {
+  @include grid-media($large-grid) {
+    float: right;
     margin-bottom: 0;
     margin-left: 5%;
     margin-right: 5%;
     margin-top: 20px;
+    position: relative;
     width: 30%;
   }
   h1 {
@@ -148,7 +150,7 @@
     @include grid-media($medium-grid) {
       white-space: normal;
     }
-    @include grid-media($extra-large-grid) {
+    @include grid-media($large-grid) {
       height: auto;
       text-align: left;
       width: 100%;
@@ -165,20 +167,19 @@
     float: left;
     max-height: 100%;
   }
-  @include grid-media($extra-large-grid) {
-    height: 100vh;
+  @include grid-media($large-grid) {
+    height: 100%;
+    position: absolute;
     width: 60%;
   }
   img {
+    height: auto;
     width: 100%;
     @include grid-media($large-grid) {
-      height: auto;
-      position: relative;
-    }
-    @include grid-media($extra-large-grid) {
-      height: 100vh;
-      left: -20vh;
-      width: auto;
+      height: 100%;
+      max-width: 100%;
+      object-fit: cover;
+      object-position: 45% 50%;
     }
   }
 }
