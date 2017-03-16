@@ -10,13 +10,15 @@ var controller = new ScrollMagic.Controller();
 var header = $('.header');
 
 function pageInit() {
+    moveHuntingHeader();
+    scrollingEffect();
     mobileNavInit();
     scrollNavInit();
     stickyHeaderInit();
     jobDescriptionToggler();
     bindSectionScrollers();
-    moveHuntingHeader();
     floatingButton();
+
 }
 
 function resizeHandler() {
@@ -26,9 +28,17 @@ function resizeHandler() {
     moveHuntingHeader();
 }
 
+function scrollingEffect() {
+    $('#fullpage').fullpage({
+        scrollOverflow: true,
+        normalScrollElements: '.job'
+    });
+}
+
 function jobDescriptionToggler() {
     $(".job__button").click(function() {
         $(".wanted__text").find(".job-" + this.id).toggleClass("job--open");
+        $.fn.fullpage.reBuild();
     });
 }
 
@@ -48,14 +58,15 @@ function stickyHeaderInit() {
             TweenMax.to(header, 0.4, {opacity: 1});
         }
     });
-
+/*
     var lastScrollTop = 0;
     $(window).scroll( function() {
         var scrollTop = $(this).scrollTop();
-        css =  scrollTop > lastScrollTop ? {'opacity': 0, 'top': 0, 'position': 'static', 'transition': '0.2s'} : {'opacity': 1, 'position': 'fixed', 'transition': '0.4s'};
+        css =  scrollTop > lastScrollTop ? {'opacity': 0, 'top': 0, 'position': 'static', 'transition': 'all 0.5s linear'} : {'opacity': 1, 'position': 'fixed', 'transition': 'all 0.5s linear'};
         header.css(css);
         lastScrollTop = scrollTop;
     });
+    */
 }
 
 function moveHuntingHeader() {
@@ -71,8 +82,7 @@ function moveHuntingHeader() {
 
 function bindSectionScrollers() {
     $('.scroll__button').on('click', function() {
-        var id = $(this).data('href');
-        controller.scrollTo(id);
+        $.fn.fullpage.moveSectionDown();
     });
 }
 
@@ -104,10 +114,10 @@ function floatingButton() {
 }
 
 function buttonVisibility(className, sectionBottom, isScrollingDown, scrollBottom) {
-   var element = $(className + ' .scroll__button');
+  /* var element = $(className + ' .scroll__button');
     if ((scrollBottom >= (sectionBottom * 0.98)) && (scrollBottom <= sectionBottom * 1.15)) {
         if (element.is( ':hidden' ) && isScrollingDown ) { element.slideDown(250); }
-    } else { element.slideUp(250); }
+    } else { element.slideUp(250); }*/
 }
 
 /**
