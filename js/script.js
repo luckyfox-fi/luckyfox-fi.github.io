@@ -17,6 +17,7 @@ function pageInit() {
     bindSectionScrollers();
     moveHuntingHeader();
     floatingButton();
+    scrollifySection();
 }
 
 function resizeHandler() {
@@ -26,9 +27,22 @@ function resizeHandler() {
     moveHuntingHeader();
 }
 
+function scrollifySection() {
+    if ($(window).width() > 320) {
+        $.scrollify({
+            section : ".section",
+            updateHash : false,
+            interstitialSection : ".footer, .hungry"
+        });
+    }
+}
+
 function jobDescriptionToggler() {
     $(".job__button").click(function() {
         $(".wanted__text").find(".job-" + this.id).toggleClass("job--open");
+        if ($(window).height() < 1200) {
+            $.scrollify.update()
+        }
     });
 }
 
@@ -48,14 +62,6 @@ function stickyHeaderInit() {
             TweenMax.to(header, 0.4, {opacity: 1});
         }
     });
-
-    var lastScrollTop = 0;
-    $(window).scroll( function() {
-        var scrollTop = $(this).scrollTop();
-        css =  scrollTop > lastScrollTop ? {'opacity': 0, 'top': 0, 'position': 'static', 'transition': '0.2s'} : {'opacity': 1, 'position': 'fixed', 'transition': '0.4s'};
-        header.css(css);
-        lastScrollTop = scrollTop;
-    });
 }
 
 function moveHuntingHeader() {
@@ -71,8 +77,7 @@ function moveHuntingHeader() {
 
 function bindSectionScrollers() {
     $('.scroll__button').on('click', function() {
-        var id = $(this).data('href');
-        controller.scrollTo(id);
+        $.scrollify.next();
     });
 }
 
@@ -86,7 +91,7 @@ function scrollToId(id) {
 }
 
 function floatingButton() {
-    var lastScrollTop = 0;
+    /*var lastScrollTop = 0;
     $(window).scroll(function() {
         var scrollTop = $(this).scrollTop();
         var scrollBottom = scrollTop + $(window).height();
@@ -101,6 +106,7 @@ function floatingButton() {
         buttonVisibility('.wanted', wantedBottom, isScrollingDown, scrollBottom);
         buttonVisibility('.hunting', huntingBottom, isScrollingDown, scrollBottom);
    });
+   */
 }
 
 function buttonVisibility(className, sectionBottom, isScrollingDown, scrollBottom) {
