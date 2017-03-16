@@ -115,3 +115,21 @@ a {
     fill: $black;
   }
 }
+
+.text-link {
+  text-decoration: none;
+}
+
+@mixin single-color-link($color: $black) {
+  &:link, &:hover, &:active, &:visited {
+    color: $color;
+  }
+}
+
+.text-link--black {
+  @include single-color-link;
+}
+
+.text-link--white {
+  @include single-color-link(#fff);
+}
