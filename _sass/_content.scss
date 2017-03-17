@@ -1,6 +1,7 @@
 .section {
   min-height: 100vh;
   position: relative;
+  touch-action: none;
 }
 
 .section--short {

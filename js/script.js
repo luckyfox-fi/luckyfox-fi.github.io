@@ -31,9 +31,11 @@ function scrollifySection() {
         $.scrollify({
             interstitialSection : ".footer, .hungry",
             section : ".section",
-            touchScroll: false,
+            touchScroll: true,
             updateHash : false
         });
+    } else {
+        $('.section').css('touch-action', 'auto');
     }
 }
 
@@ -61,48 +63,6 @@ function stickyHeaderInit() {
         else {
             TweenMax.to(header, 0.4, {opacity: 1});
         }
-    });
-
-    $('.section--first').after( function() {
-        var didScroll;
-        var lastScrollTop = 0;
-        var delta = 100;
-        var navbarHeight = header.outerHeight();
-
-        $(window).scroll(function(event){
-            didScroll = true;
-        });
-
-        setInterval(function() {
-            if (didScroll) {
-                hasScrolled();
-                didScroll = false;
-            }
-        }, 250);
-
-        function hasScrolled() {
-        var st = $(this).scrollTop();
-
-        if (Math.abs(lastScrollTop - st) <= delta)
-            return;
-
-        if (st > lastScrollTop && st > navbarHeight) {
-            header.css({
-                'opacity': 1,
-                'top': '-140px',
-                'transition': 'all 1s'
-            });
-        } else {
-            if (st + $(window).height() < $(document).height()) {
-                header.css({
-                    'opacity': 1,
-                    'position': 'fixed',
-                    'top': '0'
-                });
-            }
-        }
-        lastScrollTop = st;
-    }
     });
 }
 
