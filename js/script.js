@@ -29,9 +29,10 @@ function resizeHandler() {
 function scrollifySection() {
     if ($(window).width() > 320) {
         $.scrollify({
+            interstitialSection : ".footer, .hungry",
             section : ".section",
-            updateHash : false,
-            interstitialSection : ".footer, .hungry"
+            touchScroll: false,
+            updateHash : false
         });
     }
 }
@@ -40,7 +41,7 @@ function jobDescriptionToggler() {
     $(".job__button").click(function() {
         $(".wanted__text").find(".job-" + this.id).toggleClass("job--open");
         if ($(window).height() < 1200) {
-            $.scrollify.update()
+            $.scrollify.update();
         }
     });
 }
@@ -61,6 +62,48 @@ function stickyHeaderInit() {
             TweenMax.to(header, 0.4, {opacity: 1});
         }
     });
+
+    $('.section--first').after( function() {
+        var didScroll;
+        var lastScrollTop = 0;
+        var delta = 100;
+        var navbarHeight = header.outerHeight();
+
+        $(window).scroll(function(event){
+            didScroll = true;
+        });
+
+        setInterval(function() {
+            if (didScroll) {
+                hasScrolled();
+                didScroll = false;
+            }
+        }, 250);
+
+        function hasScrolled() {
+        var st = $(this).scrollTop();
+
+        if (Math.abs(lastScrollTop - st) <= delta)
+            return;
+
+        if (st > lastScrollTop && st > navbarHeight) {
+            header.css({
+                'opacity': 1,
+                'top': '-140px',
+                'transition': 'all 1s'
+            });
+        } else {
+            if (st + $(window).height() < $(document).height()) {
+                header.css({
+                    'opacity': 1,
+                    'position': 'fixed',
+                    'top': '0'
+                });
+            }
+        }
+        lastScrollTop = st;
+    }
+    });
 }
 
 function moveHuntingHeader() {
@@ -76,7 +119,12 @@ function moveHuntingHeader() {
 
 function bindSectionScrollers() {
     $('.scroll__button').on('click', function() {
-        $.scrollify.next();
+        if ($(window).width() > 320) {
+            $.scrollify.next();
+        } else {
+            var id = $(this).data('href');
+            controller.scrollTo(id);
+        }
     });
 }
 
