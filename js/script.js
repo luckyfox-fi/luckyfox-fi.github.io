@@ -29,10 +29,13 @@ function resizeHandler() {
 function scrollifySection() {
     if ($(window).width() > 320) {
         $.scrollify({
+            interstitialSection : ".footer, .hungry",
             section : ".section",
-            updateHash : false,
-            interstitialSection : ".footer, .hungry"
+            touchScroll: true,
+            updateHash : false
         });
+    } else {
+        $('.section').css('touch-action', 'auto');
     }
 }
 
@@ -40,7 +43,7 @@ function jobDescriptionToggler() {
     $(".job__button").click(function() {
         $(".wanted__text").find(".job-" + this.id).toggleClass("job--open");
         if ($(window).height() < 1200) {
-            $.scrollify.update()
+            $.scrollify.update();
         }
     });
 }
@@ -76,7 +79,12 @@ function moveHuntingHeader() {
 
 function bindSectionScrollers() {
     $('.scroll__button').on('click', function() {
-        $.scrollify.next();
+        if ($(window).width() > 320) {
+            $.scrollify.next();
+        } else {
+            var id = $(this).data('href');
+            controller.scrollTo(id);
+        }
     });
 }
 
