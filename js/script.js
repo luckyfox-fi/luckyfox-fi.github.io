@@ -16,7 +16,7 @@ function pageInit() {
     jobDescriptionToggler();
     bindSectionScrollers();
     moveHuntingHeader();
-    floatingButton();
+    scrollifySection();
 }
 
 function resizeHandler() {
@@ -26,9 +26,22 @@ function resizeHandler() {
     moveHuntingHeader();
 }
 
+function scrollifySection() {
+    if ($(window).width() > 320) {
+        $.scrollify({
+            section : ".section",
+            updateHash : false,
+            interstitialSection : ".footer, .hungry"
+        });
+    }
+}
+
 function jobDescriptionToggler() {
     $(".job__button").click(function() {
         $(".wanted__text").find(".job-" + this.id).toggleClass("job--open");
+        if ($(window).height() < 1200) {
+            $.scrollify.update()
+        }
     });
 }
 
@@ -48,14 +61,6 @@ function stickyHeaderInit() {
             TweenMax.to(header, 0.4, {opacity: 1});
         }
     });
-
-    var lastScrollTop = 0;
-    $(window).scroll( function() {
-        var scrollTop = $(this).scrollTop();
-        css =  scrollTop > lastScrollTop ? {'opacity': 0, 'top': 0, 'position': 'static', 'transition': '0.2s'} : {'opacity': 1, 'position': 'fixed', 'transition': '0.4s'};
-        header.css(css);
-        lastScrollTop = scrollTop;
-    });
 }
 
 function moveHuntingHeader() {
@@ -71,8 +76,7 @@ function moveHuntingHeader() {
 
 function bindSectionScrollers() {
     $('.scroll__button').on('click', function() {
-        var id = $(this).data('href');
-        controller.scrollTo(id);
+        $.scrollify.next();
     });
 }
 
@@ -85,34 +89,6 @@ function scrollToId(id) {
     }
 }
 
-function floatingButton() {
-    var lastScrollTop = 0;
-    $(window).scroll(function() {
-        var scrollTop = $(this).scrollTop();
-        var scrollBottom = scrollTop + $(window).height();
-        var isScrollingDown = true;
-        var $wantedSection = $('.wanted');
-        var $huntingSection = $('.hunting');
-        var wantedBottom = $wantedSection.position().top + $wantedSection.outerHeight(true);
-        var huntingBottom =  $huntingSection.position().top + $huntingSection.outerHeight(true);
-
-        isScrollingDown = scrollTop > lastScrollTop ? true : false;
-        lastScrollTop = scrollTop;
-        buttonVisibility('.wanted', wantedBottom, isScrollingDown, scrollBottom);
-        buttonVisibility('.hunting', huntingBottom, isScrollingDown, scrollBottom);
-   });
-}
-
-function buttonVisibility(className, sectionBottom, isScrollingDown, scrollBottom) {
-   var element = $(className + ' .scroll__button');
-    if ((scrollBottom >= (sectionBottom * 0.98)) && (scrollBottom <= sectionBottom * 1.15)) {
-        if (element.is( ':hidden' ) && isScrollingDown ) { element.slideDown(250); }
-    } else { element.slideUp(250); }
-}
-
-/**
- * Scroll based navigation on bigger screen sizes
- */
 function scrollNavInit() {
      // change behaviour of controller to animate scroll instead of jump
      controller.scrollTo(function (newpos) {

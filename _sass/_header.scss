@@ -1,8 +1,8 @@
 .header {
   background: $background-color;
   font-family: $header-font-family;
-  padding-top: 20px;
   padding-bottom: 20px;
+  padding-top: 20px;
   z-index: 2;
 }
 
@@ -70,10 +70,10 @@
 
   .header__navigation {
     ul {
-      position: relative;
-      padding: calc(100vh / 4) 0;
-      margin: 0;
       height: 100vh;
+      margin: 0;
+      padding: calc(100vh / 4) 0;
+      position: relative;
       z-index: 2;
 
       li {
@@ -92,21 +92,22 @@
 
   .header__navigation {
     background: $background-color;
-    text-align: center;
-    width: 100vw;
     float: none;
-    position: absolute;
-    top: 0;
     left: 0;
     margin-left: 0;
+    position: absolute;
+    text-align: center;
+    top: 0;
+    width: 100vw;
+
   }
 }
 
 .header__mobile-nav-btn {
-  z-index: 5;
   position: absolute;
   right: 20px;
   top: 35px;
+  z-index: 5;
   @extend %clear-btn;
 
   @include grid-media($medium-grid) {

@@ -4,18 +4,19 @@
 }
 
 .section--short {
-  max-height: 100%;
-  min-height: 90vh;
+  height: 100vh;
   top: -30px;
   @include grid-media($extra-large-grid) {
     min-height: 95vh;
+  }
+  .scroll {
+    bottom: 10vh;
   }
 }
 
 .hero {
   @include grid-column(12);
-  margin-bottom: 100px;
-  margin-top: 3em;
+  padding-top: 7em;
   text-align: center;
   @include grid-media($large-grid) {
     @include grid-column(6);
@@ -35,22 +36,31 @@
 }
 
 .hungry.section {
+  height: 100%;
+  margin-bottom: -10px;
   min-height: 100%;
+  overflow: hidden;
   @include grid-media($medium-grid) {
-    max-height: 100%;
-    min-height: 50%;
-    overflow: hidden;
     width: 100%;
   }
 }
 
 .hungry__image {
   display: block;
+  height: 100%;
   img {
-    height: auto;
-    left: 0;
-    margin-bottom: -10px;
+    height: 100vh;
+    object-fit: cover;
     width: 100vw;
+    @include grid-media($medium-grid) {
+      height: 100%;
+      left: 0;
+      object-fit: contain;
+    }
+    @include grid-media($extra-large-grid) {
+      height: 100vh;
+      object-fit: cover;
+    }
   }
 }
 
@@ -78,7 +88,7 @@
 }
 
 .wanted__text {
-  margin-bottom: 100px;
+  margin-bottom: 80px;
   padding-bottom: 3em;
   padding-top: 3em;
   @include grid-column(10);
@@ -97,9 +107,9 @@
 .job__open { display: inline-flex; }
 
 .job__button, .job__button:focus {
-  cursor: pointer;
   background: none;
   border: none;
+  cursor: pointer;
   outline: 0;
 }
 
@@ -125,6 +135,13 @@
   }
 }
 
+.hunting {
+  &:before {
+    clear: both;
+    content: "";
+    display: block;
+  }
+}
 .hunting__text {
   margin-bottom: 100px;
   @include grid-column(12);
