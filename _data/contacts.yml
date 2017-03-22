@@ -1,13 +1,13 @@
 - description: Outi will change every preconceptions you have ever had about sales people! This foxy business lady has over 13 years of experience in B-to-B sales. She is the queen of networking and negotiating, and always aims to make long-lasting partnerships with the customers. Outi has a positive can-do attitude towards everything, even when working under pressure. She overcomes any challenges like a pro, with an everlasting smile lighting up her face.
-  email: <a href="mailto:outi.mattila@luckyfox.fi" class="text-link text-link--white">outi.mattila@luckyfox.fi</a>
+  email: <a href="mailto:outi.mattila@luckyfox.fi" class="text-link text-link--white" onclick="ga('send', 'event', 'Contact', 'Email', 'Outi Mattila');">outi.mattila@luckyfox.fi</a>
   id: 1
   image: /images/contacts/outi.jpg
   name: Outi Mattila
-  phone: <a href="tel:+358409002808" class="text-link text-link--white">040 900 2808</a>
+  phone: <a href="tel:+358409002808" class="text-link text-link--white" onclick="ga('send', 'event', 'Contact', 'Call', 'Outi Mattila');">040 900 2808</a>
 
 - description: Sanna is the royal ruler of recruitment. No talents will be left unfound, when she steps into the game! This dame has an ambitious strategy of going through every single rabbit hole to find the right person for the job. Business-minded Sanna holds almost 10 years of experience in recruiting and HR. She has a special nose for sniffing tech-savvy talent, and therefore holds an amazing track record in IT recruitments. Everything Sanna does, she does with a big heart and passion.
-  email: <a href="mailto:sanna.lehtoniemi@luckyfox.fi" class="text-link text-link--white">sanna.lehtoniemi@luckyfox.fi</a>
+  email: <a href="mailto:sanna.lehtoniemi@luckyfox.fi" class="text-link text-link--white" onclick="ga('send', 'event', 'Contact', 'Email', 'Sanna Lehtoniemi');">sanna.lehtoniemi@luckyfox.fi</a>
   id: 2
   image: /images/contacts/sanna.jpg
   name: Sanna Lehtoniemi
-  phone: <a href="tel:+358445592922" class="text-link text-link--white">044 559 2922</a>
+  phone: <a href="tel:+358445592922" class="text-link text-link--white" onclick="ga('send', 'event', 'Contact', 'Call', 'Sanna Lehtoniemi');">044 559 2922</a>

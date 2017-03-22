@@ -4,8 +4,10 @@
     HTML5, JavaScript, Java, Scala, React, Angular, Node.js, you might be what we are looking for! Your background can be
     either in Front- or Back-end. We don't expect you to have years of experience in software development.
     If you have solid proof of your expertise from your own projects or school, you might be a match for us!</p>
-    <p>Send your application and CV to <a href="rekry@luckyfox.fi" class="text-link text-link--black">rekry@luckyfox.fi</a></p>
-    <p>More information: Sanna Lehtoniemi p. <a href="tel:+358445592922" class="text-link text-link--black">044 559 2922</a></p>
+    <p>Send your application and CV to
+    <a href="mailto:rekry@luckyfox.fi" class="text-link text-link--black" onclick="ga('send', 'event', 'Contact', 'Email', 'Työpaikat - Web Developer');">rekry@luckyfox.fi</a></p>
+    <p>More information: Sanna Lehtoniemi p.
+    <a href="tel:+358445592922" class="text-link text-link--black" onclick="ga('send', 'event', 'Contact', 'Call', 'Työpaikat - Web Developer');">044 559 2922</a></p>
 
 - name: Service designer
   description: |
@@ -13,5 +15,7 @@
     get to develop high end services and sites for our customers. We also appreciate a backround in designing
     web services. We don´t expect you to have years of work experience. If you have gained good insight from your
     studies or your own projects, you might be the right person for us.</p>
-    <p>Send us your application, CV and portfolio to <a href="rekry@luckyfox.fi" class="text-link text-link--black">rekry@luckyfox.fi</a></p>
-    <p>More information: Sanna Lehtoniemi p. <a href="tel:+358445592922" class="text-link text-link--black">044 559 2922</a></p>
+    <p>Send us your application, CV and portfolio to
+    <a href="mailto:rekry@luckyfox.fi" class="text-link text-link--black" onclick="ga('send', 'event', 'Contact', 'Email', 'Työpaikat - Service Designer');">rekry@luckyfox.fi</a></p>
+    <p>More information: Sanna Lehtoniemi p.
+    <a href="tel:+358445592922" class="text-link text-link--black" onclick="ga('send', 'event', 'Contact', 'Call', 'Työpaikat - Service Designer');">044 559 2922</a></p>
