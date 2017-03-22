@@ -5,19 +5,22 @@
 }
 
 .section--short {
-  max-height: 100%;
-  min-height: 85vh;
+  height: 100vh;
   margin-bottom: 50px;
+  position: static;
   @include grid-media($small-grid) {
+    height: 130vh;
+    position: relative;
   }
   @include grid-media($medium-grid) {
-    max-height: 95vh;
-  }
-  @include grid-media($extra-large-grid) {
-    min-height: 95vh;
+    height: 95vh;
+    position: static;
   }
   .scroll {
-    bottom: 3vh;
+    bottom: -10vh;
+    @include grid-media($medium-grid) {
+      bottom: 3vh;
+    }
   }
 }
 
@@ -39,6 +42,7 @@
 
 .hero__image {
   height: auto;
+  padding-top: 20px;
   width: 150px;
   z-index: 1;
 }
@@ -98,6 +102,7 @@
 .wanted {
   background: $alt-background-color;
   color: $black;
+  height: 100%;
 }
 
 .wanted__text {
@@ -193,6 +198,7 @@
   height: auto;
   max-height: 400px;
   overflow: hidden;
+  top: 0;
   width: 100%;
   @include grid-media($medium-grid) {
     float: left;
