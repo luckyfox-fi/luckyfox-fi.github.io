@@ -1,3 +1,5 @@
+/* global $ TweenMax ScrollMagic */
+
 $(function () {
     pageInit();
 
