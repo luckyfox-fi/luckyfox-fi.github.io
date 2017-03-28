@@ -1,11 +1,11 @@
 .section {
-  min-height: 100vh;
+  min-height: 107vh;
   position: relative;
   touch-action: none;
 }
 
 .section--short {
-  height: 100vh;
+  height: 80vh;
   margin-bottom: 50px;
   position: static;
   @include grid-media($small-grid) {
@@ -17,7 +17,7 @@
     position: static;
   }
   .scroll {
-    bottom: -10vh;
+    bottom: 5vh;
     @include grid-media($medium-grid) {
       bottom: 3vh;
     }
@@ -26,13 +26,13 @@
 
 .hero {
   @include grid-column(12);
-  padding-top: 15vh;
+  padding-top: 5vh;
   text-align: center;
   @include grid-media($small-grid) {
-    padding-top: 20vh;
+    padding-top: 10vh;
   }
   @include grid-media($medium-grid) {
-    padding-top: 20vh;
+    padding-top: 15vh;
   }
   @include grid-media($large-grid) {
     @include grid-column(6);
@@ -53,7 +53,7 @@
 }
 
 .hungry.section {
-  height: 100%;
+  height: 100vh;
   margin-bottom: -10px;
   min-height: 100%;
   overflow: hidden;
@@ -70,13 +70,7 @@
     object-fit: cover;
     width: 100vw;
     @include grid-media($medium-grid) {
-      height: 100%;
       left: 0;
-      object-fit: contain;
-    }
-    @include grid-media($extra-large-grid) {
-      height: 100vh;
-      object-fit: cover;
     }
   }
 }
