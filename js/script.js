@@ -26,7 +26,6 @@ function pageInit() {
     moveHuntingHeader();
     scrollifySection();
     $.scrollify.disable();
-    onHeaderClick();
     scrollHandler();
 }
 
@@ -59,17 +58,6 @@ function jobDescriptionToggler() {
     });
 }
 
-function onHeaderClick() {
-    $('.header__navigation a').click(function() {
-        $.scrollify.enable();
-        $.scrollify.move($(this).attr('href'));
-        $.scrollify.disable();
-        setTimeout(function() {
-            setStickyHeaderTween(false);
-        }, 1150);
-    });
-}
-
 function stickyHeaderInit() {
     var stickyHeader = new ScrollMagic.Scene({duration: 240})
     .setPin('.header', {
@@ -80,7 +68,7 @@ function stickyHeaderInit() {
 
     stickyHeader.on('end', function (e) {
         if (e.scrollDirection === 'FORWARD') {
-            TweenMax.to(header, 0.4, {top: '-130px'});
+            TweenMax.to(header, 0.4, {opacity: 0, top: '-130px'});
         } else {
             TweenMax.to(header, 0.4, {opacity: 1, top: 0});
         }
@@ -89,22 +77,15 @@ function stickyHeaderInit() {
 
 function setStickyHeaderTween(isVisible) {
     if (!isScrolling) {
-        if (isVisible) {
-            css = {
-                opacity: 1,
-                position: 'fixed',
-                top: 0,
-                transition: 'top 0.4s'
-            };
-        } else {
-            css = {
-                position: 'fixed',
-                top: '-130px',
-                transition: 'top 0.2s'
+        if ($(window).scrollTop() >= section.first().position().top) {
+            if (isVisible) {
+                css = { opacity: 1, position: 'fixed', top: 0 };
+            } else {
+                css = { opacity: 1, top: '-130px', position: 'fixed' }
             }
+            header.css(css);
         }
     }
-    header.css(css);
 }
 
 function scrollHandler() {
@@ -115,11 +96,13 @@ function scrollHandler() {
             $.scrollify.disable();
             normalScrolling(current);
         } else if (current < lastScrollTop) {
-            handleScrollingUp(current);
             setStickyHeaderTween(true);
+            handleScrollingUp(current);
         } else if (current > lastScrollTop) {
+            setTimeout(function() {
+                setStickyHeaderTween(false);
+            }, 500);
             handleScrollingDown(current);
-            setStickyHeaderTween(false);
         } else {
             $.scrollify.disable();
         }
@@ -129,19 +112,9 @@ function scrollHandler() {
 
 function normalScrolling(current) {
     if (current > lastScrollTop) {
-        css = {
-            opacity: 1,
-            position: 'fixed',
-            top: '-130px',
-            transition: 'top 0.2s'
-        };
+        css = { top: '-130px', position: 'fixed' };
     } else {
-        css = {
-            opacity: 1,
-            position: 'fixed',
-            top: 0,
-            transition: 'top 0.4s'
-        };
+        css = { top: 0, position: 'fixed' };
     }
     header.css(css);
     afterScroll();
@@ -158,7 +131,7 @@ function handleScrollingUp(current) {
     });
 
     for (var index in sections) {
-        if (current < sections[index].position) {
+        if (current <= sections[index].position) {
             window.location.hash = sections[index].hash;
             break;
         }
@@ -220,25 +193,18 @@ function bindSectionScrollers() {
     });
 }
 
-function scrollToId(id) {
-    controller.scrollTo(id);
-    if (window.history && window.history.pushState) {
-        history.pushState('', document.title, id);
-    }
-}
-
 function scrollNavInit() {
-    controller.scrollTo(function (newpos) {
-        TweenMax.to(window, 0.5, {scrollTo: {y: newpos}});
-    });
-
-    $('a[href*=\\#]').on('click', function (e) {
-        var id = $(this).attr('href');
-        id = id.startsWith('/') ? id.substr(1) : id;
-        if ($(id).length > 0) {
-            e.preventDefault();
-            scrollToId(id);
-        }
+    $('a[href*=\\#]').on('click', function () {
+        header.css({visibility: 'hidden', opacity: 0});
+        $.scrollify.enable();
+        $.scrollify.move($(this).attr('href'));
+        $.scrollify.disable();
+        setTimeout(function() {
+            setStickyHeaderTween(false);
+        }, 1250);
+        setTimeout(function() {
+            header.css({visibility: 'visible', opacity: 1});
+        }, 1600);
     });
 }
 
