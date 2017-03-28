@@ -119,16 +119,22 @@
 
 .job__open { display: inline-flex; }
 
-.job__button, .job__button:focus {
-  background: none;
-  border: none;
+.job__button {
+    display: inline-flex;
+}
+
+.job__button:active, .job__button:hover {
+  color: $background-color;
   cursor: pointer;
-  outline: 0;
+}
+
+.job__open-description {
+  margin: auto 10px;
 }
 
 .job__open-description { height: 20px; }
 
-.job__description, .job__title, .job__open-description { transition: all 1s; }
+.job__button, .job__title, .job__description, .job__open-description { transition: all 0.2s; }
 
 .job__description {
   margin: 0;
@@ -141,7 +147,9 @@
     max-height: 100vh;
     overflow: visible;
   }
-  .job__title { color: $brand-color; }
+  .job__title {
+    color: $brand-color;
+  }
   .job__open-description {
     fill: $brand-color;
     transform: rotate(180deg);
