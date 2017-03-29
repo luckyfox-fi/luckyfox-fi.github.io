@@ -12,6 +12,7 @@ var controller = new ScrollMagic.Controller();
 var css = {};
 var footer = $('.footer');
 var header = $('.header');
+var headerIsDown;
 var isScrolling = false;
 var lastScrollTop = $(window).scrollTop();
 var section = $('.section');
@@ -27,6 +28,7 @@ function pageInit() {
     scrollifySection();
     $.scrollify.disable();
     onWindowScroll();
+    setStickyHeaderTween();
 }
 
 function resizeHandler() {
@@ -75,17 +77,30 @@ function stickyHeaderInit() {
     });
 }
 
-function setStickyHeaderTween(isVisible) {
-    if (!isScrolling) {
-        if ($(window).scrollTop() >= section.first().position().top) {
-            if (isVisible) {
-                css = { opacity: 1, position: 'fixed', top: 0 };
-            } else {
-                css = { opacity: 1, top: '-130px', position: 'fixed' }
+
+function setStickyHeaderTween() {
+    setInterval(function() {
+        if (!isScrolling) {
+            if ($(window).scrollTop() >= section.first().position().top) {
+                if (headerIsDown) {
+                    css = {
+                        opacity: 1,
+                        position: 'fixed',
+                        top: 0,
+                        transition: 'top 0.2s'
+                    };
+                } else {
+                    css = {
+                        opacity: 1,
+                        top: '-130px',
+                        position: 'fixed',
+                        transition: 'top 0.2s'
+                    }
+                }
             }
             header.css(css);
         }
-    }
+    }, 500)
 }
 
 function onWindowScroll() {
@@ -110,12 +125,8 @@ function scrollHandler() {
         $.scrollify.disable();
         normalScrolling(current);
     } else if (current < lastScrollTop) {
-        setStickyHeaderTween(true);
         handleScrollingUp(current);
     } else if (current > lastScrollTop) {
-        setTimeout(function() {
-            setStickyHeaderTween(false);
-        }, 505);
         handleScrollingDown(current);
     } else {
         $.scrollify.disable();
@@ -125,11 +136,10 @@ function scrollHandler() {
 
 function normalScrolling(current) {
     if (current > lastScrollTop) {
-        css = { top: '-130px', position: 'fixed' };
+        headerIsDown = false;
     } else {
-        css = { top: 0, position: 'fixed' };
+        headerIsDown = true;
     }
-    header.css(css);
     afterScroll();
 }
 
@@ -151,6 +161,7 @@ function handleScrollingUp(current) {
     }
     $.scrollify.update();
     $.scrollify.disable();
+    headerIsDown = true;
 }
 
 function handleScrollingDown(current) {
@@ -160,6 +171,7 @@ function handleScrollingDown(current) {
             isScrolling = true;
             scrollToNext();
         }
+        headerIsDown = false;
     }
 }
 
@@ -204,16 +216,16 @@ function bindSectionScrollers() {
 
 function scrollNavInit() {
     $('a[href*=\\#]').on('click', function () {
-        header.css({visibility: 'hidden', opacity: 0});
+        header.css({visibility: 'hidden'});
         $.scrollify.enable();
         $.scrollify.move($(this).attr('href'));
         $.scrollify.disable();
         setTimeout(function() {
-            setStickyHeaderTween(false);
-        }, 1400);
+            headerIsDown = false;
+        }, 1700);
         setTimeout(function() {
-            header.css({visibility: 'visible', opacity: 1});
-        }, 1650);
+            header.css({opacity: 0, visibility: 'visible', top: '-130px'});
+        }, 1800);
     });
 }
 
