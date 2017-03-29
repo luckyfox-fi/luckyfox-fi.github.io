@@ -3,6 +3,8 @@
   font-family: $header-font-family;
   padding-bottom: 20px;
   padding-top: 20px;
+  position: relative;
+  max-width: 100vw;
   z-index: 2;
 }
 

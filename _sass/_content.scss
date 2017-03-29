@@ -1,11 +1,11 @@
 .section {
-  min-height: 100vh;
+  min-height: 105vh;
   position: relative;
   touch-action: none;
 }
 
 .section--short {
-  height: 100vh;
+  height: 80vh;
   margin-bottom: 50px;
   position: static;
   @include grid-media($small-grid) {
@@ -17,22 +17,24 @@
     position: static;
   }
   .scroll {
-    bottom: -10vh;
+    bottom: 0;
+    position: relative;
     @include grid-media($medium-grid) {
       bottom: 3vh;
+      position: absolute;
     }
   }
 }
 
 .hero {
   @include grid-column(12);
-  padding-top: 15vh;
+  padding-top: 5vh;
   text-align: center;
   @include grid-media($small-grid) {
-    padding-top: 20vh;
+    padding-top: 10vh;
   }
   @include grid-media($medium-grid) {
-    padding-top: 20vh;
+    padding-top: 15vh;
   }
   @include grid-media($large-grid) {
     @include grid-column(6);
@@ -53,9 +55,7 @@
 }
 
 .hungry.section {
-  height: 100%;
-  margin-bottom: -10px;
-  min-height: 100%;
+  min-height: 100vh;
   overflow: hidden;
   @include grid-media($medium-grid) {
     width: 100%;
@@ -70,13 +70,7 @@
     object-fit: cover;
     width: 100vw;
     @include grid-media($medium-grid) {
-      height: 100%;
       left: 0;
-      object-fit: contain;
-    }
-    @include grid-media($extra-large-grid) {
-      height: 100vh;
-      object-fit: cover;
     }
   }
 }
@@ -125,16 +119,22 @@
 
 .job__open { display: inline-flex; }
 
-.job__button, .job__button:focus {
-  background: none;
-  border: none;
+.job__button {
+    display: inline-flex;
+}
+
+.job__button:active, .job__button:hover {
+  color: $background-color;
   cursor: pointer;
-  outline: 0;
+}
+
+.job__open-description {
+  margin: auto 10px;
 }
 
 .job__open-description { height: 20px; }
 
-.job__description, .job__title, .job__open-description { transition: all 1s; }
+.job__button, .job__title, .job__description, .job__open-description { transition: all 0.2s; }
 
 .job__description {
   margin: 0;
@@ -147,7 +147,9 @@
     max-height: 100vh;
     overflow: visible;
   }
-  .job__title { color: $brand-color; }
+  .job__title {
+    color: $brand-color;
+  }
   .job__open-description {
     fill: $brand-color;
     transform: rotate(180deg);
