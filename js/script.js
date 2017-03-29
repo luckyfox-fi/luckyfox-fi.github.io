@@ -123,7 +123,8 @@ function scrollHandler() {
     var lastSectionTop = section.last().position().top;
     if (current + windowHeight > lastSectionTop + windowHeight) {
         $.scrollify.disable();
-        normalScrolling(current);
+        headerIsDown = current <= lastScrollTop;
+        afterScroll();
     } else if (current < lastScrollTop) {
         handleScrollingUp(current);
     } else if (current > lastScrollTop) {
@@ -132,15 +133,6 @@ function scrollHandler() {
         $.scrollify.disable();
     }
     lastScrollTop = current;
-}
-
-function normalScrolling(current) {
-    if (current > lastScrollTop) {
-        headerIsDown = false;
-    } else {
-        headerIsDown = true;
-    }
-    afterScroll();
 }
 
 function handleScrollingUp(current) {
@@ -169,18 +161,14 @@ function handleScrollingDown(current) {
         var overFlow = $.scrollify.current().height() - windowHeight;
         if (current > $.scrollify.current().position().top + overFlow) {
             isScrolling = true;
-            scrollToNext();
+            $.scrollify.enable();
+            $.scrollify.update();
+            $.scrollify.next();
+            $.scrollify.disable();
+            setTimeout(afterScroll, 1250);
         }
         headerIsDown = false;
     }
-}
-
-function scrollToNext() {
-    $.scrollify.enable();
-    $.scrollify.update();
-    $.scrollify.next();
-    $.scrollify.disable();
-    setTimeout(afterScroll, 1250);
 }
 
 function afterScroll() {
