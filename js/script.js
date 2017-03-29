@@ -1,4 +1,4 @@
-/* global $ TweenMax ScrollMagic */
+/* global $  */
 
 $(function () {
     pageInit();
@@ -8,27 +8,27 @@ $(function () {
     });
 });
 
-var controller = new ScrollMagic.Controller();
 var css = {};
 var footer = $('.footer');
 var header = $('.header');
-var headerIsDown;
+var headerIsDown = false;
+var headerScrolling;
 var isScrolling = false;
 var lastScrollTop = $(window).scrollTop();
 var section = $('.section');
 var windowHeight = $(window).height();
+var firstSectionBottom = section.first().position().top + windowHeight * 0.8;
 
 function pageInit() {
     mobileNavInit();
     scrollNavInit();
-    stickyHeaderInit();
     jobDescriptionToggler();
     bindSectionScrollers();
     moveHuntingHeader();
     scrollifySection();
     $.scrollify.disable();
     onWindowScroll();
-    setStickyHeaderTween();
+    setStickyHeader();
 }
 
 function resizeHandler() {
@@ -60,47 +60,19 @@ function jobDescriptionToggler() {
     });
 }
 
-function stickyHeaderInit() {
-    var stickyHeader = new ScrollMagic.Scene({duration: 240})
-    .setPin('.header', {
-        pushFollowers: false,
-        spacerClass: 'header__pin'
-    })
-    .addTo(controller);
-
-    stickyHeader.on('end', function (e) {
-        if (e.scrollDirection === 'FORWARD') {
-            TweenMax.to(header, 0.4, {opacity: 0, top: '-130px'});
-        } else {
-            TweenMax.to(header, 0.4, {opacity: 1, top: 0});
-        }
-    });
-}
-
-
-function setStickyHeaderTween() {
+function setStickyHeader() {
     setInterval(function() {
         if (!isScrolling) {
-            if ($(window).scrollTop() >= section.first().position().top) {
-                if (headerIsDown) {
-                    css = {
-                        opacity: 1,
-                        position: 'fixed',
-                        top: 0,
-                        transition: 'top 0.2s'
-                    };
-                } else {
-                    css = {
-                        opacity: 1,
-                        top: '-130px',
-                        position: 'fixed',
-                        transition: 'top 0.2s'
-                    }
-                }
+            if ($(window).scrollTop() < firstSectionBottom || headerIsDown) {
+                css = { top: 0 };
+            } else {
+                css = { top: '-130px' };
             }
-            header.css(css);
+        } else if (isScrolling && !headerIsDown) {
+            css = { top: '-130px' };
         }
-    }, 500)
+        header.css(css);
+    }, 400);
 }
 
 function onWindowScroll() {
@@ -121,10 +93,14 @@ function onWindowScroll() {
 function scrollHandler() {
     var current = $(this).scrollTop();
     var lastSectionTop = section.last().position().top;
-    if (current + windowHeight > lastSectionTop + windowHeight) {
+    headerIsDown = current <= lastScrollTop;
+
+    if (headerScrolling) {
+        headerIsDown = !headerIsDown;
+
+        return;
+    } else if (current + windowHeight > lastSectionTop + windowHeight) {
         $.scrollify.disable();
-        headerIsDown = current <= lastScrollTop;
-        afterScroll();
     } else if (current < lastScrollTop) {
         handleScrollingUp(current);
     } else if (current > lastScrollTop) {
@@ -133,6 +109,7 @@ function scrollHandler() {
         $.scrollify.disable();
     }
     lastScrollTop = current;
+    setTimeout(afterScroll, 1250);
 }
 
 function handleScrollingUp(current) {
@@ -153,7 +130,6 @@ function handleScrollingUp(current) {
     }
     $.scrollify.update();
     $.scrollify.disable();
-    headerIsDown = true;
 }
 
 function handleScrollingDown(current) {
@@ -165,9 +141,7 @@ function handleScrollingDown(current) {
             $.scrollify.update();
             $.scrollify.next();
             $.scrollify.disable();
-            setTimeout(afterScroll, 1250);
         }
-        headerIsDown = false;
     }
 }
 
@@ -204,16 +178,14 @@ function bindSectionScrollers() {
 
 function scrollNavInit() {
     $('a[href*=\\#]').on('click', function () {
-        header.css({visibility: 'hidden'});
+        headerScrolling = true;
         $.scrollify.enable();
         $.scrollify.move($(this).attr('href'));
         $.scrollify.disable();
         setTimeout(function() {
             headerIsDown = false;
-        }, 1700);
-        setTimeout(function() {
-            header.css({opacity: 0, visibility: 'visible', top: '-130px'});
-        }, 1800);
+            headerScrolling = false;
+        }, 1600);
     });
 }
 
@@ -248,7 +220,7 @@ function showMobileNav(openMobileNav) {
         openIcon.hide();
         navList.show();
         closeIcon.show();
-        header.css('height', '100vh');
+        header.css({height: '100vh', background: '#040404'});
         header.on('touchmove', function(e) {
             e.preventDefault();
         });
@@ -258,6 +230,6 @@ function showMobileNav(openMobileNav) {
         navList.hide();
         closeIcon.hide();
         openIcon.show();
-        header.css('height', 'auto');
+        header.css({height: 'auto', background: 'transparent'});
     }
 }

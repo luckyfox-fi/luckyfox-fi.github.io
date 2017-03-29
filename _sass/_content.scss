@@ -7,6 +7,7 @@
 .section--short {
   height: 80vh;
   margin-bottom: 50px;
+  padding-top: 15vh;
   position: static;
   @include grid-media($small-grid) {
     height: 130vh;

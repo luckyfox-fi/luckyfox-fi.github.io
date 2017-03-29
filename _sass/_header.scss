@@ -1,10 +1,12 @@
 .header {
-  background: $background-color;
+  background-color: transparent;
   font-family: $header-font-family;
+  opacity: 1;
   padding-bottom: 20px;
   padding-top: 20px;
-  position: relative;
-  max-width: 100vw;
+  position: fixed;
+  transition: top 0.2s;
+  width: 100vw;
   z-index: 2;
 }
 
@@ -93,7 +95,6 @@
   }
 
   .header__navigation {
-    background: $background-color;
     float: none;
     left: 0;
     margin-left: 0;
