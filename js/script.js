@@ -26,7 +26,7 @@ function pageInit() {
     moveHuntingHeader();
     scrollifySection();
     $.scrollify.disable();
-    scrollHandler();
+    onWindowScroll();
 }
 
 function resizeHandler() {
@@ -88,26 +88,39 @@ function setStickyHeaderTween(isVisible) {
     }
 }
 
-function scrollHandler() {
+function onWindowScroll() {
+    var didScroll = false;
+
     $(window).scroll(function() {
-        var current = $(this).scrollTop();
-        var lastSectionTop = section.last().position().top;
-        if (current + windowHeight > lastSectionTop + windowHeight) {
-            $.scrollify.disable();
-            normalScrolling(current);
-        } else if (current < lastScrollTop) {
-            setStickyHeaderTween(true);
-            handleScrollingUp(current);
-        } else if (current > lastScrollTop) {
-            setTimeout(function() {
-                setStickyHeaderTween(false);
-            }, 500);
-            handleScrollingDown(current);
-        } else {
-            $.scrollify.disable();
-        }
-        lastScrollTop = current;
+        didScroll = true;
     });
+
+    setInterval(function() {
+        if (didScroll) {
+            didScroll = false;
+            scrollHandler();
+        }
+    }, 300);
+}
+
+function scrollHandler() {
+    var current = $(this).scrollTop();
+    var lastSectionTop = section.last().position().top;
+    if (current + windowHeight > lastSectionTop + windowHeight) {
+        $.scrollify.disable();
+        normalScrolling(current);
+    } else if (current < lastScrollTop) {
+        setStickyHeaderTween(true);
+        handleScrollingUp(current);
+    } else if (current > lastScrollTop) {
+        setTimeout(function() {
+            setStickyHeaderTween(false);
+        }, 505);
+        handleScrollingDown(current);
+    } else {
+        $.scrollify.disable();
+    }
+    lastScrollTop = current;
 }
 
 function normalScrolling(current) {
@@ -142,15 +155,11 @@ function handleScrollingUp(current) {
 
 function handleScrollingDown(current) {
     if (!isScrolling) {
-        handleScrollifyTransition(current);
-    }
-}
-
-function handleScrollifyTransition(current) {
-    var overFlow = $.scrollify.current().height() - windowHeight;
-    if (current > $.scrollify.current().position().top + overFlow) {
-        isScrolling = true;
-        scrollToNext();
+        var overFlow = $.scrollify.current().height() - windowHeight;
+        if (current > $.scrollify.current().position().top + overFlow) {
+            isScrolling = true;
+            scrollToNext();
+        }
     }
 }
 
@@ -201,10 +210,10 @@ function scrollNavInit() {
         $.scrollify.disable();
         setTimeout(function() {
             setStickyHeaderTween(false);
-        }, 1250);
+        }, 1400);
         setTimeout(function() {
             header.css({visibility: 'visible', opacity: 1});
-        }, 1600);
+        }, 1650);
     });
 }
 
