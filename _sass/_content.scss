@@ -104,8 +104,8 @@
   margin-bottom: 80px;
   padding-bottom: 3em;
   padding-top: 3em;
-  @include grid-column(10);
-  @include grid-push(1);
+  text-align: justify;
+  @include grid-column(12);
   @include grid-media($medium-grid) {
     @include grid-column(8);
     @include grid-push(2);
@@ -230,9 +230,10 @@
 }
 
 .contacts__all {
-  padding-top: 3em;
+  margin-top: 30px;
   text-align: center;
   @include grid-media($medium-grid) {
+   margin-top: 3em;
     @include grid-column(10);
     @include grid-push(1);
   }
@@ -295,7 +296,7 @@
 }
 
 .contact__description {
-  @include grid-column(12);
+  float: left;
   @include grid-media($small-grid) {
     @include grid-column(6);
     @include grid-push(3);

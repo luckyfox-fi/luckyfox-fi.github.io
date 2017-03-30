@@ -24,11 +24,11 @@ function pageInit() {
     scrollNavInit();
     jobDescriptionToggler();
     bindSectionScrollers();
-    moveHuntingHeader();
     scrollifySection();
     $.scrollify.disable();
     onWindowScroll();
     setStickyHeader();
+    moveHuntingHeader();
 }
 
 function resizeHandler() {
@@ -87,7 +87,7 @@ function onWindowScroll() {
             didScroll = false;
             scrollHandler();
         }
-    }, 300);
+    }, 400);
 }
 
 function scrollHandler() {
