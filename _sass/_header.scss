@@ -1,5 +1,5 @@
 .header {
-  background-color: transparent;
+  background: $background-color;
   font-family: $header-font-family;
   opacity: 1;
   padding-bottom: 20px;
@@ -8,6 +8,9 @@
   transition: top 0.2s;
   width: 100vw;
   z-index: 2;
+  @include grid-media($medium-grid) {
+      background: transparent;
+  }
 }
 
 .header__title {

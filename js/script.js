@@ -8,16 +8,18 @@ $(function () {
     });
 });
 
+var buttonHandler = false;
 var css = {};
 var footer = $('.footer');
 var header = $('.header');
 var headerIsDown = false;
-var headerScrolling;
+var headerOnClick;
 var isScrolling = false;
 var lastScrollTop = $(window).scrollTop();
 var section = $('.section');
 var windowHeight = $(window).height();
 var firstSectionBottom = section.first().position().top + windowHeight * 0.8;
+var didScroll = false;
 
 function pageInit() {
     mobileNavInit();
@@ -42,7 +44,7 @@ function scrollifySection() {
     $.scrollify({
         section: '.section',
         sectionName: 'section-name',
-        interstitialSection: '.footer, .wanted, .hunting',
+        interstitialSection: '.footer, .hungry, .wanted, .hunting',
         scrollSpeed: 1100,
         updateHash: true,
         touchScroll: true,
@@ -68,24 +70,28 @@ function setStickyHeader() {
             } else {
                 css = { top: '-130px' };
             }
-        } else if (isScrolling && !headerIsDown) {
-            css = { top: '-130px' };
         }
         header.css(css);
     }, 400);
 }
 
 function onWindowScroll() {
-    var didScroll = false;
-
     $(window).scroll(function() {
-        didScroll = true;
+        if (header.hasClass('header--mobile-open')) {
+            return;
+        }
+
+        if (!didScroll && !isScrolling) {
+            didScroll = true;
+        }
     });
 
     setInterval(function() {
         if (didScroll) {
             didScroll = false;
-            scrollHandler();
+            if (!isScrolling) {
+                scrollHandler();
+            }
         }
     }, 400);
 }
@@ -95,21 +101,19 @@ function scrollHandler() {
     var lastSectionTop = section.last().position().top;
     headerIsDown = current <= lastScrollTop;
 
-    if (headerScrolling) {
-        headerIsDown = !headerIsDown;
-
-        return;
+    if (headerOnClick) {
+        headerIsDown = buttonHandler ? headerIsDown : !headerIsDown;
     } else if (current + windowHeight > lastSectionTop + windowHeight) {
         $.scrollify.disable();
+        afterScroll();
     } else if (current < lastScrollTop) {
         handleScrollingUp(current);
     } else if (current > lastScrollTop) {
         handleScrollingDown(current);
     } else {
+        afterScroll();
         $.scrollify.disable();
     }
-    lastScrollTop = current;
-    setTimeout(afterScroll, 1250);
 }
 
 function handleScrollingUp(current) {
@@ -130,19 +134,27 @@ function handleScrollingUp(current) {
     }
     $.scrollify.update();
     $.scrollify.disable();
+    afterScroll();
 }
 
 function handleScrollingDown(current) {
     if (!isScrolling) {
+        isScrolling = true;
         var overFlow = $.scrollify.current().height() - windowHeight;
         if (current > $.scrollify.current().position().top + overFlow) {
-            isScrolling = true;
-            $.scrollify.enable();
-            $.scrollify.update();
-            $.scrollify.next();
-            $.scrollify.disable();
+            scrollToNext();
+            setTimeout(afterScroll, 1200);
+        } else {
+            isScrolling = false;
         }
     }
+}
+
+function scrollToNext() {
+    $.scrollify.enable();
+    $.scrollify.update();
+    $.scrollify.next();
+    $.scrollify.disable();
 }
 
 function afterScroll() {
@@ -168,23 +180,30 @@ function moveHuntingHeader() {
 }
 
 function bindSectionScrollers() {
-    $('.scroll__button').on('click', function() {
+    $('button').on('click', function () {
+        buttonHandler = true;
+        headerOnClick = true;
         $.scrollify.enable();
-        $.scrollify.update();
         $.scrollify.move($(this).attr('data-href'));
         $.scrollify.disable();
+        setTimeout(function() {
+            lastScrollTop = $(window).scrollTop();
+            headerOnClick = false;
+            buttonHandler = false;
+        }, 1600);
     });
 }
 
 function scrollNavInit() {
     $('a[href*=\\#]').on('click', function () {
-        headerScrolling = true;
+        headerOnClick = true;
         $.scrollify.enable();
         $.scrollify.move($(this).attr('href'));
         $.scrollify.disable();
         setTimeout(function() {
+            lastScrollTop = $(window).scrollTop();
             headerIsDown = false;
-            headerScrolling = false;
+            headerOnClick = false;
         }, 1600);
     });
 }
@@ -220,7 +239,7 @@ function showMobileNav(openMobileNav) {
         openIcon.hide();
         navList.show();
         closeIcon.show();
-        header.css({height: '100vh', background: '#040404'});
+        header.css({height: '100vh', top: 0});
         header.on('touchmove', function(e) {
             e.preventDefault();
         });
@@ -230,6 +249,6 @@ function showMobileNav(openMobileNav) {
         navList.hide();
         closeIcon.hide();
         openIcon.show();
-        header.css({height: 'auto', background: 'transparent'});
+        header.css({height: 'auto', top: 0});
     }
 }
