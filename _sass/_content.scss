@@ -241,6 +241,10 @@
   @include grid-media($medium-grid) { display: none; }
 }
 
+.contacts {
+    padding-top: 3em;
+}
+
 .contacts__all {
   margin-top: 30px;
   text-align: center;
