@@ -18,7 +18,7 @@ var isScrolling = false;
 var lastScrollTop = $(window).scrollTop();
 var section = $('.section');
 var windowHeight = $(window).height();
-var firstSectionBottom = section.first().position().top + windowHeight * 0.8;
+var firstSectionBottom = section.first().position().top + windowHeight;
 var didScroll = false;
 
 function pageInit() {
@@ -78,13 +78,15 @@ function openDescription(id) {
     } else if ($(window).width() <= 1024) {
         pxsToGoForward = $('.job-' + id).offset().top * 0.8;
     }
+
     return pxsToGoForward;
 }
 
 function setStickyHeader() {
     setInterval(function() {
+        var onFirstSection = firstSectionBottom * 0.8;
         if (!isScrolling) {
-            if ($(window).scrollTop() < firstSectionBottom || headerIsDown) {
+            if ($(window).scrollTop() < onFirstSection || headerIsDown) {
                 css = { top: 0 };
             } else {
                 css = { top: '-130px' };
