@@ -112,7 +112,7 @@
   color: $black;
   min-height: 100vh;
   @include grid-media($medium-grid) {
-    min-height: 80vh;
+    min-height: 60vh;
   }
   @include grid-media($extra-large-grid) {
     min-height: 100vh;

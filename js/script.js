@@ -22,7 +22,6 @@ var firstSectionBottom = section.first().position().top + windowHeight;
 var didScroll = false;
 
 function pageInit() {
-    moveHuntingHeader();
     mobileNavInit();
     scrollNavInit();
     jobDescriptionToggler();
@@ -31,13 +30,14 @@ function pageInit() {
     $.scrollify.disable();
     onWindowScroll();
     setStickyHeader();
+    moveHuntingHeader();
 }
 
 function resizeHandler() {
-    moveHuntingHeader();
     mobileNavInit();
     scrollNavInit();
     header.width($(window).width());
+    moveHuntingHeader();
 }
 
 function scrollifySection() {
@@ -55,31 +55,40 @@ function scrollifySection() {
 
 function jobDescriptionToggler() {
     $('.job__button').click(function() {
-        $('.wanted__text').find('.job-' + this.id).toggleClass('job--open');
         isScrolling = true;
-        if ($('.job-' + this.id).hasClass('job--open')) {
+        headerIsDown = false;
+
+        $('.wanted__text').find('.job-' + this.id).toggleClass('job--open');
+
+        var descriptionIsHidden = $('.job-' + this.id).hasClass('job--open');
+
+        if (descriptionIsHidden) {
             var px = openDescription(this.id);
             $('html, body').animate({scrollTop: px}
                 , 1100);
+            $.scrollify.disable();
         } else {
             $.scrollify.enable();
             $.scrollify.move('#wanted');
         }
         $.scrollify.update();
         $.scrollify.disable();
-        setTimeout(afterScroll, 1550);
+        setTimeout(afterScroll, 1250);
     });
 }
 
 function openDescription(id) {
-    var pxsToGoForward;
+    var scrollTop;
+    var position = $('.job-' + id).offset().top;
     if ($(window).width() <= 576) {
-        pxsToGoForward = $('.job-' + id).offset().top * 0.97;
-    } else if ($(window).width() <= 1024) {
-        pxsToGoForward = $('.job-' + id).offset().top * 0.8;
+        scrollTop = position * 0.93;
+    } else if ($(window).width() < 1500) {
+        scrollTop = position * 0.8;
+    } else {
+        scrollTop = $(window).scrollTop();
     }
 
-    return pxsToGoForward;
+    return scrollTop;
 }
 
 function setStickyHeader() {
