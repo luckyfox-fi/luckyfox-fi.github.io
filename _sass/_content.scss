@@ -1,5 +1,5 @@
 .section {
-  min-height: 105vh;
+  min-height: 100vh;
   position: relative;
   touch-action: none;
   width: 100%;
@@ -110,12 +110,18 @@
 .wanted {
   background: $alt-background-color;
   color: $black;
-  height: 100%;
+  min-height: 100vh;
+  @include grid-media($medium-grid) {
+    min-height: 80vh;
+  }
+  @include grid-media($extra-large-grid) {
+    min-height: 100vh;
+  }
 }
 
 .wanted__text {
   margin-bottom: 80px;
-  padding-bottom: 3em;
+  padding-bottom: 6em;
   padding-top: 3em;
   text-align: justify;
   @include grid-column(12);

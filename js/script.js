@@ -22,6 +22,7 @@ var firstSectionBottom = section.first().position().top + windowHeight * 0.8;
 var didScroll = false;
 
 function pageInit() {
+    moveHuntingHeader();
     mobileNavInit();
     scrollNavInit();
     jobDescriptionToggler();
@@ -30,14 +31,13 @@ function pageInit() {
     $.scrollify.disable();
     onWindowScroll();
     setStickyHeader();
-    moveHuntingHeader();
 }
 
 function resizeHandler() {
+    moveHuntingHeader();
     mobileNavInit();
     scrollNavInit();
     header.width($(window).width());
-    moveHuntingHeader();
 }
 
 function scrollifySection() {
@@ -56,10 +56,29 @@ function scrollifySection() {
 function jobDescriptionToggler() {
     $('.job__button').click(function() {
         $('.wanted__text').find('.job-' + this.id).toggleClass('job--open');
-        $.scrollify.enable();
+        isScrolling = true;
+        if ($('.job-' + this.id).hasClass('job--open')) {
+            var px = openDescription(this.id);
+            $('html, body').animate({scrollTop: px}
+                , 1100);
+        } else {
+            $.scrollify.enable();
+            $.scrollify.move('#wanted');
+        }
         $.scrollify.update();
         $.scrollify.disable();
+        setTimeout(afterScroll, 1550);
     });
+}
+
+function openDescription(id) {
+    var pxsToGoForward;
+    if ($(window).width() <= 576) {
+        pxsToGoForward = $('.job-' + id).offset().top * 0.97;
+    } else if ($(window).width() <= 1024) {
+        pxsToGoForward = $('.job-' + id).offset().top * 0.8;
+    }
+    return pxsToGoForward;
 }
 
 function setStickyHeader() {
@@ -100,14 +119,18 @@ function scrollHandler() {
     var current = $(this).scrollTop();
     var lastSectionTop = section.last().position().top;
     headerIsDown = current <= lastScrollTop;
+    var hungry = $('.hungry').position().top;
+    var wanted = $('.wanted').position().top;
 
     if (headerOnClick) {
         headerIsDown = buttonHandler ? headerIsDown : !headerIsDown;
+    } else if (current >= hungry && current < wanted) {
+        handleScrollingWithoutScrollify(current);
     } else if (current + windowHeight > lastSectionTop + windowHeight) {
         $.scrollify.disable();
         afterScroll();
     } else if (current < lastScrollTop) {
-        handleScrollingUp(current);
+        handleScrollingWithoutScrollify(current);
     } else if (current > lastScrollTop) {
         handleScrollingDown(current);
     } else {
@@ -116,7 +139,7 @@ function scrollHandler() {
     }
 }
 
-function handleScrollingUp(current) {
+function handleScrollingWithoutScrollify(current) {
     var sections = [];
     section.each(function() {
         var sectionInfo = {

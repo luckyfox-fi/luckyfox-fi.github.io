@@ -26,7 +26,7 @@ title: Luckyfox | Foxiest digital masterminds
     </div>
 </div>
 
-<div class="wanted section"  data-section-name="wanted">
+<div class="wanted section" data-section-name="wanted">
     <div class="container">
         <div class="wanted__text">
             <h1>Most wanted<br>foxes</h1>
@@ -44,7 +44,7 @@ title: Luckyfox | Foxiest digital masterminds
                         <svg class="job__open-description" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 34 34"><polygon points="17 25.63 2 12.07 5.34 8.37 17 18.91 28.66 8.37 32 12.07 17 25.63"/></svg>
                     </a>
                 </span>
-                <div class="job__description">{{ job.description }}</div>
+                <div class="job__description" id ="#job-{{ forloop.index }}">{{ job.description }}</div>
             </div>
             {% endfor %}
         </div>
