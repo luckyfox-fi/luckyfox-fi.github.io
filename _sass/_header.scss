@@ -5,7 +5,6 @@
   padding-bottom: 20px;
   padding-top: 20px;
   position: fixed;
-  transition: top 0.2s;
   width: 100vw;
   z-index: 2;
   @include grid-media($medium-grid) {

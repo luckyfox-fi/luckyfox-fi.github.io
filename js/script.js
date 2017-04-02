@@ -96,9 +96,9 @@ function setStickyHeader() {
         var onFirstSection = firstSectionBottom * 0.8;
         if (!isScrolling) {
             if ($(window).scrollTop() < onFirstSection || headerIsDown) {
-                css = { top: 0 };
+                css = { top: 0, transition: 'top 0.2s'};
             } else {
-                css = { top: '-130px' };
+                css = { top: '-130px', transition: 'top 0.2s 0.8s'};
             }
         }
         header.css(css);
@@ -129,7 +129,6 @@ function onWindowScroll() {
 function scrollHandler() {
     var current = $(this).scrollTop();
     var lastSectionTop = section.last().position().top;
-    headerIsDown = current <= lastScrollTop;
     var hungry = $('.hungry').position().top;
     var wanted = $('.wanted').position().top;
 
@@ -138,19 +137,21 @@ function scrollHandler() {
     } else if (current >= hungry && current < wanted) {
         handleScrollingWithoutScrollify(current);
     } else if (current + windowHeight > lastSectionTop + windowHeight) {
-        $.scrollify.disable();
-        afterScroll();
+        handleScrollingWithoutScrollify(current);
     } else if (current < lastScrollTop) {
         handleScrollingWithoutScrollify(current);
     } else if (current > lastScrollTop) {
         handleScrollingDown(current);
+        headerIsDown = current <= lastScrollTop;
     } else {
+        headerIsDown = current <= lastScrollTop;
         afterScroll();
         $.scrollify.disable();
     }
 }
 
 function handleScrollingWithoutScrollify(current) {
+    headerIsDown = current <= lastScrollTop;
     var sections = [];
     section.each(function() {
         var sectionInfo = {
