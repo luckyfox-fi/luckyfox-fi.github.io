@@ -1,4 +1,4 @@
-/* global $  */
+/* global $ */
 
 $(function () {
     pageInit();
@@ -9,17 +9,21 @@ $(function () {
 });
 
 var buttonHandler = false;
+var closeIcon = $('.header__mobile-nav-btn--close');
 var css = {};
+var didScroll = false;
 var footer = $('.footer');
 var header = $('.header');
 var headerIsDown = false;
 var headerOnClick;
 var isScrolling = false;
 var lastScrollTop = $(window).scrollTop();
+var navLink = $('.header__navigation a');
+var navList = $('.header__navigation ul');
+var openIcon = $('.header__mobile-nav-btn--open');
 var section = $('.section');
 var windowHeight = $(window).height();
 var firstSectionBottom = section.first().position().top + windowHeight;
-var didScroll = false;
 
 function pageInit() {
     mobileNavInit();
@@ -36,8 +40,8 @@ function pageInit() {
 function resizeHandler() {
     mobileNavInit();
     scrollNavInit();
-    header.width($(window).width());
     moveHuntingHeader();
+    onWindowScroll();
 }
 
 function scrollifySection() {
@@ -66,14 +70,13 @@ function jobDescriptionToggler() {
             var px = openDescription(this.id);
             $('html, body').animate({scrollTop: px}
                 , 1100);
-            $.scrollify.disable();
         } else {
             $.scrollify.enable();
             $.scrollify.move('#wanted');
         }
         $.scrollify.update();
         $.scrollify.disable();
-        setTimeout(afterScroll, 1250);
+        setTimeout(afterScroll, 1150);
     });
 }
 
@@ -83,7 +86,7 @@ function openDescription(id) {
     if ($(window).width() <= 576) {
         scrollTop = position * 0.93;
     } else if ($(window).width() < 1500) {
-        scrollTop = position * 0.8;
+        scrollTop = position * 0.85;
     } else {
         scrollTop = $(window).scrollTop();
     }
@@ -129,31 +132,28 @@ function onWindowScroll() {
 function scrollHandler() {
     var current = $(this).scrollTop();
     var lastSectionTop = section.last().position().top;
-    var hungry = $('.hungry').position().top;
+    var hungry = $('.hungry').position().top * 0.98;
     var wanted = $('.wanted').position().top;
+    var currentlyInHungrySection = current >= hungry && current < wanted;
+    var currentlyInLast =
+        current + windowHeight > lastSectionTop + windowHeight;
 
     if (headerOnClick) {
         headerIsDown = buttonHandler ? headerIsDown : !headerIsDown;
-    } else if (current >= hungry && current < wanted) {
+    } else if (currentlyInHungrySection) {
+        headerIsDown = current <= lastScrollTop;
+    } else if (current < lastScrollTop || currentlyInLast) {
         handleScrollingWithoutScrollify(current);
-    } else if (current + windowHeight > lastSectionTop + windowHeight) {
-        handleScrollingWithoutScrollify(current);
-    } else if (current < lastScrollTop) {
-        handleScrollingWithoutScrollify(current);
-    } else if (current > lastScrollTop) {
+    } else {
         handleScrollingDown(current);
         headerIsDown = current <= lastScrollTop;
-    } else {
-        headerIsDown = current <= lastScrollTop;
-        afterScroll();
-        $.scrollify.disable();
     }
 }
 
 function handleScrollingWithoutScrollify(current) {
-    headerIsDown = current <= lastScrollTop;
     var sections = [];
     section.each(function() {
+        $.scrollify.update();
         var sectionInfo = {
             position: $(this).position().top,
             hash: $(this).attr('data-section-name')
@@ -167,6 +167,7 @@ function handleScrollingWithoutScrollify(current) {
             break;
         }
     }
+    headerIsDown = current <= lastScrollTop;
     $.scrollify.update();
     $.scrollify.disable();
     afterScroll();
@@ -175,6 +176,7 @@ function handleScrollingWithoutScrollify(current) {
 function handleScrollingDown(current) {
     if (!isScrolling) {
         isScrolling = true;
+        $.scrollify.update();
         var overFlow = $.scrollify.current().height() - windowHeight;
         if (current > $.scrollify.current().position().top + overFlow) {
             scrollToNext();
@@ -215,7 +217,7 @@ function moveHuntingHeader() {
 }
 
 function bindSectionScrollers() {
-    $('button').on('click', function () {
+    $('.scroll__button').click(function () {
         buttonHandler = true;
         headerOnClick = true;
         $.scrollify.enable();
@@ -230,7 +232,7 @@ function bindSectionScrollers() {
 }
 
 function scrollNavInit() {
-    $('a[href*=\\#]').on('click', function () {
+    navLink.click(function () {
         headerOnClick = true;
         $.scrollify.enable();
         $.scrollify.move($(this).attr('href'));
@@ -245,29 +247,30 @@ function scrollNavInit() {
 
 function mobileNavInit() {
     var mobileClass = 'header--mobile';
-    if (window.matchMedia('(max-width: 767px)').matches) {
+    if ($(window).width() < 768) {
         header.addClass(mobileClass);
-
-        $('.header__mobile-nav-btn--open').click(function() {
+        openIcon.click(function() {
             showMobileNav(true);
         });
 
-        $('.header__mobile-nav-btn--close').click(function() {
+        closeIcon.click(function() {
             showMobileNav(false);
         });
 
-        $('.header__navigation a').click(function() {
+        navLink.click(function() {
             showMobileNav(false);
         });
     } else {
         header.removeClass(mobileClass);
+        closeIcon.off('click');
+        openIcon.off('click');
+        navLink.off('click');
+        navList.removeAttr('style');
+        scrollNavInit();
     }
 }
 
 function showMobileNav(openMobileNav) {
-    var openIcon = $('.header__mobile-nav-btn--open');
-    var closeIcon = $('.header__mobile-nav-btn--close');
-    var navList = $('.header__navigation ul');
     var navOpenClass = 'header--mobile-open';
     if (openMobileNav) {
         header.addClass(navOpenClass);
