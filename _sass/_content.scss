@@ -21,7 +21,6 @@
   }
   .scroll {
     bottom: 0;
-    position: relative;
     @include grid-media($medium-grid) {
       bottom: 3vh;
       position: absolute;
@@ -58,6 +57,7 @@
 }
 
 .hungry {
+  margin-bottom: -10px;
   max-height: 100vh;
   min-height: 70vh;
   overflow: hidden;

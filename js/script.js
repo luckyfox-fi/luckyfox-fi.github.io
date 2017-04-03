@@ -22,6 +22,7 @@ var navLink = $('.header__navigation a');
 var navList = $('.header__navigation ul');
 var openIcon = $('.header__mobile-nav-btn--open');
 var section = $('.section');
+var wanted = $('.wanted');
 var windowHeight = $(window).height();
 var firstSectionBottom = section.first().position().top + windowHeight;
 
@@ -38,10 +39,12 @@ function pageInit() {
 }
 
 function resizeHandler() {
+    windowHeight = $(window).height();
+    firstSectionBottom = section.first().position().top + windowHeight;
     mobileNavInit();
     scrollNavInit();
-    moveHuntingHeader();
     onWindowScroll();
+    moveHuntingHeader();
 }
 
 function scrollifySection() {
@@ -74,21 +77,26 @@ function jobDescriptionToggler() {
             $.scrollify.enable();
             $.scrollify.move('#wanted');
         }
+        window.location.hash = '#i-need-a-job';
         $.scrollify.update();
         $.scrollify.disable();
-        setTimeout(afterScroll, 1150);
+        setTimeout(afterScroll, 1850);
     });
 }
 
 function openDescription(id) {
     var scrollTop;
-    var position = $('.job-' + id).offset().top;
-    if ($(window).width() <= 576) {
-        scrollTop = position * 0.93;
-    } else if ($(window).width() < 1500) {
-        scrollTop = position * 0.85;
+    var job = $('.job-' + id);
+    var windowWidth = $(window).width();
+
+    if (windowWidth <= 375) {
+        scrollTop = (job.height() + job.offset().top) * 0.85;
+    } else if (windowWidth < 768) {
+        scrollTop = (job.offset().top - job.height()) * 0.8;
+    } else if (windowWidth <= 1024 && windowWidth > windowHeight) {
+        scrollTop = (job.offset().top - job.height()) * 0.83;
     } else {
-        scrollTop = $(window).scrollTop();
+        scrollTop = wanted.offset().top;
     }
 
     return scrollTop;
@@ -113,7 +121,6 @@ function onWindowScroll() {
         if (header.hasClass('header--mobile-open')) {
             return;
         }
-
         if (!didScroll && !isScrolling) {
             didScroll = true;
         }
@@ -133,19 +140,21 @@ function scrollHandler() {
     var current = $(this).scrollTop();
     var lastSectionTop = section.last().position().top;
     var hungry = $('.hungry').position().top * 0.98;
-    var wanted = $('.wanted').position().top;
-    var currentlyInHungrySection = current >= hungry && current < wanted;
+    var inHungrySection =
+    current >= hungry && current < wanted.position().top;
     var currentlyInLast =
         current + windowHeight > lastSectionTop + windowHeight;
 
     if (headerOnClick) {
         headerIsDown = buttonHandler ? headerIsDown : !headerIsDown;
-    } else if (currentlyInHungrySection) {
+    } else if (inHungrySection || currentlyInLast || current < lastScrollTop) {
         headerIsDown = current <= lastScrollTop;
-    } else if (current < lastScrollTop || currentlyInLast) {
         handleScrollingWithoutScrollify(current);
-    } else {
+    } else if (current > lastScrollTop) {
+        headerIsDown = current <= lastScrollTop;
         handleScrollingDown(current);
+    } else {
+        $.scrollify.disable();
         headerIsDown = current <= lastScrollTop;
     }
 }
@@ -167,7 +176,6 @@ function handleScrollingWithoutScrollify(current) {
             break;
         }
     }
-    headerIsDown = current <= lastScrollTop;
     $.scrollify.update();
     $.scrollify.disable();
     afterScroll();
@@ -176,7 +184,6 @@ function handleScrollingWithoutScrollify(current) {
 function handleScrollingDown(current) {
     if (!isScrolling) {
         isScrolling = true;
-        $.scrollify.update();
         var overFlow = $.scrollify.current().height() - windowHeight;
         if (current > $.scrollify.current().position().top + overFlow) {
             scrollToNext();
