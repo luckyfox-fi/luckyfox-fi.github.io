@@ -1,11 +1,15 @@
 .header {
   background: $background-color;
   font-family: $header-font-family;
+  opacity: 1;
   padding-bottom: 20px;
   padding-top: 20px;
-  position: relative;
-  max-width: 100vw;
+  position: fixed;
+  width: 100vw;
   z-index: 2;
+  @include grid-media($medium-grid) {
+      background: transparent;
+  }
 }
 
 .header__title {
@@ -93,7 +97,6 @@
   }
 
   .header__navigation {
-    background: $background-color;
     float: none;
     left: 0;
     margin-left: 0;

@@ -1,4 +1,4 @@
-/* global $ TweenMax ScrollMagic */
+/* global $ */
 
 $(function () {
     pageInit();
@@ -8,41 +8,47 @@ $(function () {
     });
 });
 
-var controller = new ScrollMagic.Controller();
+var buttonHandler = false;
+var closeIcon = $('.header__mobile-nav-btn--close');
 var css = {};
+var didScroll = false;
 var footer = $('.footer');
 var header = $('.header');
-var headerIsDown;
+var headerIsDown = false;
+var headerOnClick;
 var isScrolling = false;
 var lastScrollTop = $(window).scrollTop();
+var navLink = $('.header__navigation a');
+var navList = $('.header__navigation ul');
+var openIcon = $('.header__mobile-nav-btn--open');
 var section = $('.section');
 var windowHeight = $(window).height();
+var firstSectionBottom = section.first().position().top + windowHeight;
 
 function pageInit() {
     mobileNavInit();
     scrollNavInit();
-    stickyHeaderInit();
     jobDescriptionToggler();
     bindSectionScrollers();
-    moveHuntingHeader();
     scrollifySection();
     $.scrollify.disable();
     onWindowScroll();
-    setStickyHeaderTween();
+    setStickyHeader();
+    moveHuntingHeader();
 }
 
 function resizeHandler() {
     mobileNavInit();
     scrollNavInit();
-    header.width($(window).width());
     moveHuntingHeader();
+    onWindowScroll();
 }
 
 function scrollifySection() {
     $.scrollify({
         section: '.section',
         sectionName: 'section-name',
-        interstitialSection: '.footer, .wanted, .hunting',
+        interstitialSection: '.footer, .hungry, .wanted, .hunting',
         scrollSpeed: 1100,
         updateHash: true,
         touchScroll: true,
@@ -53,91 +59,101 @@ function scrollifySection() {
 
 function jobDescriptionToggler() {
     $('.job__button').click(function() {
+        isScrolling = true;
+        headerIsDown = false;
+
         $('.wanted__text').find('.job-' + this.id).toggleClass('job--open');
-        $.scrollify.enable();
+
+        var descriptionIsHidden = $('.job-' + this.id).hasClass('job--open');
+
+        if (descriptionIsHidden) {
+            var px = openDescription(this.id);
+            $('html, body').animate({scrollTop: px}
+                , 1100);
+        } else {
+            $.scrollify.enable();
+            $.scrollify.move('#wanted');
+        }
         $.scrollify.update();
         $.scrollify.disable();
+        setTimeout(afterScroll, 1150);
     });
 }
 
-function stickyHeaderInit() {
-    var stickyHeader = new ScrollMagic.Scene({duration: 240})
-    .setPin('.header', {
-        pushFollowers: false,
-        spacerClass: 'header__pin'
-    })
-    .addTo(controller);
+function openDescription(id) {
+    var scrollTop;
+    var position = $('.job-' + id).offset().top;
+    if ($(window).width() <= 576) {
+        scrollTop = position * 0.93;
+    } else if ($(window).width() < 1500) {
+        scrollTop = position * 0.85;
+    } else {
+        scrollTop = $(window).scrollTop();
+    }
 
-    stickyHeader.on('end', function (e) {
-        if (e.scrollDirection === 'FORWARD') {
-            TweenMax.to(header, 0.4, {opacity: 0, top: '-130px'});
-        } else {
-            TweenMax.to(header, 0.4, {opacity: 1, top: 0});
-        }
-    });
+    return scrollTop;
 }
 
-
-function setStickyHeaderTween() {
+function setStickyHeader() {
     setInterval(function() {
+        var onFirstSection = firstSectionBottom * 0.8;
         if (!isScrolling) {
-            if ($(window).scrollTop() >= section.first().position().top) {
-                if (headerIsDown) {
-                    css = {
-                        opacity: 1,
-                        position: 'fixed',
-                        top: 0,
-                        transition: 'top 0.2s'
-                    };
-                } else {
-                    css = {
-                        opacity: 1,
-                        top: '-130px',
-                        position: 'fixed',
-                        transition: 'top 0.2s'
-                    }
-                }
+            if ($(window).scrollTop() < onFirstSection || headerIsDown) {
+                css = { top: 0, transition: 'top 0.2s'};
+            } else {
+                css = { top: '-130px', transition: 'top 0.2s 0.8s'};
             }
-            header.css(css);
         }
-    }, 500)
+        header.css(css);
+    }, 400);
 }
 
 function onWindowScroll() {
-    var didScroll = false;
-
     $(window).scroll(function() {
-        didScroll = true;
+        if (header.hasClass('header--mobile-open')) {
+            return;
+        }
+
+        if (!didScroll && !isScrolling) {
+            didScroll = true;
+        }
     });
 
     setInterval(function() {
         if (didScroll) {
             didScroll = false;
-            scrollHandler();
+            if (!isScrolling) {
+                scrollHandler();
+            }
         }
-    }, 300);
+    }, 400);
 }
 
 function scrollHandler() {
     var current = $(this).scrollTop();
     var lastSectionTop = section.last().position().top;
-    if (current + windowHeight > lastSectionTop + windowHeight) {
-        $.scrollify.disable();
+    var hungry = $('.hungry').position().top * 0.98;
+    var wanted = $('.wanted').position().top;
+    var currentlyInHungrySection = current >= hungry && current < wanted;
+    var currentlyInLast =
+        current + windowHeight > lastSectionTop + windowHeight;
+
+    if (headerOnClick) {
+        headerIsDown = buttonHandler ? headerIsDown : !headerIsDown;
+    } else if (currentlyInHungrySection) {
         headerIsDown = current <= lastScrollTop;
-        afterScroll();
-    } else if (current < lastScrollTop) {
-        handleScrollingUp(current);
-    } else if (current > lastScrollTop) {
-        handleScrollingDown(current);
+    } else if (current < lastScrollTop || currentlyInLast) {
+        handleScrollingWithoutScrollify(current);
     } else {
-        $.scrollify.disable();
+        handleScrollingDown(current);
+        headerIsDown = current <= lastScrollTop;
     }
-    lastScrollTop = current;
 }
 
-function handleScrollingUp(current) {
+function handleScrollingWithoutScrollify(current) {
     var sections = [];
     section.each(function() {
+        $.scrollify.update();
         var sectionInfo = {
             position: $(this).position().top,
             hash: $(this).attr('data-section-name')
@@ -151,24 +167,31 @@ function handleScrollingUp(current) {
             break;
         }
     }
+    headerIsDown = current <= lastScrollTop;
     $.scrollify.update();
     $.scrollify.disable();
-    headerIsDown = true;
+    afterScroll();
 }
 
 function handleScrollingDown(current) {
     if (!isScrolling) {
+        isScrolling = true;
+        $.scrollify.update();
         var overFlow = $.scrollify.current().height() - windowHeight;
         if (current > $.scrollify.current().position().top + overFlow) {
-            isScrolling = true;
-            $.scrollify.enable();
-            $.scrollify.update();
-            $.scrollify.next();
-            $.scrollify.disable();
-            setTimeout(afterScroll, 1250);
+            scrollToNext();
+            setTimeout(afterScroll, 1200);
+        } else {
+            isScrolling = false;
         }
-        headerIsDown = false;
     }
+}
+
+function scrollToNext() {
+    $.scrollify.enable();
+    $.scrollify.update();
+    $.scrollify.next();
+    $.scrollify.disable();
 }
 
 function afterScroll() {
@@ -194,61 +217,67 @@ function moveHuntingHeader() {
 }
 
 function bindSectionScrollers() {
-    $('.scroll__button').on('click', function() {
+    $('.scroll__button').click(function () {
+        buttonHandler = true;
+        headerOnClick = true;
         $.scrollify.enable();
-        $.scrollify.update();
         $.scrollify.move($(this).attr('data-href'));
         $.scrollify.disable();
+        setTimeout(function() {
+            lastScrollTop = $(window).scrollTop();
+            headerOnClick = false;
+            buttonHandler = false;
+        }, 1600);
     });
 }
 
 function scrollNavInit() {
-    $('a[href*=\\#]').on('click', function () {
-        header.css({visibility: 'hidden'});
+    navLink.click(function () {
+        headerOnClick = true;
         $.scrollify.enable();
         $.scrollify.move($(this).attr('href'));
         $.scrollify.disable();
         setTimeout(function() {
+            lastScrollTop = $(window).scrollTop();
             headerIsDown = false;
-        }, 1700);
-        setTimeout(function() {
-            header.css({opacity: 0, visibility: 'visible', top: '-130px'});
-        }, 1800);
+            headerOnClick = false;
+        }, 1600);
     });
 }
 
 function mobileNavInit() {
     var mobileClass = 'header--mobile';
-    if (window.matchMedia('(max-width: 767px)').matches) {
+    if ($(window).width() < 768) {
         header.addClass(mobileClass);
-
-        $('.header__mobile-nav-btn--open').click(function() {
+        openIcon.click(function() {
             showMobileNav(true);
         });
 
-        $('.header__mobile-nav-btn--close').click(function() {
+        closeIcon.click(function() {
             showMobileNav(false);
         });
 
-        $('.header__navigation a').click(function() {
+        navLink.click(function() {
             showMobileNav(false);
         });
     } else {
         header.removeClass(mobileClass);
+        closeIcon.off('click');
+        openIcon.off('click');
+        navLink.off('click');
+        navList.removeAttr('style');
+        scrollNavInit();
     }
 }
 
 function showMobileNav(openMobileNav) {
-    var openIcon = $('.header__mobile-nav-btn--open');
-    var closeIcon = $('.header__mobile-nav-btn--close');
-    var navList = $('.header__navigation ul');
     var navOpenClass = 'header--mobile-open';
     if (openMobileNav) {
         header.addClass(navOpenClass);
         openIcon.hide();
         navList.show();
         closeIcon.show();
-        header.css('height', '100vh');
+        header.css({height: '100vh', top: 0});
         header.on('touchmove', function(e) {
             e.preventDefault();
         });
@@ -258,6 +287,6 @@ function showMobileNav(openMobileNav) {
         navList.hide();
         closeIcon.hide();
         openIcon.show();
-        header.css('height', 'auto');
+        header.css({height: 'auto', top: 0});
     }
 }
