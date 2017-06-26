@@ -9,14 +9,3 @@
     <p>More information: Sanna Lehtoniemi p.
     <a href="tel:+358445592922" class="text-link text-link--black" onclick="ga('send', 'event', 'Contact', 'Call', 'Työpaikat - Web Developer');">044 559 2922</a></p>
 
-- name: Product Owner
-  description: |
-    <p>We are looking for a Product Owner to work with a new product. You are in charge of co-operating with different 
-    stakeholders and making sure that the project runs smoothly. We hope that you have strong backround in agile methods 
-    and previous experience in product owner or project manager roles. Understanding of web technologies is an advantage, 
-    but you don´t have to do any actual programming. As a person you are not afraid of taking charge but you also like working
-    in a team.</p>
-    <p>Send us your application, CV and portfolio to
-    <a href="mailto:rekry@luckyfox.fi" class="text-link text-link--black" onclick="ga('send', 'event', 'Contact', 'Email', 'Työpaikat - Service Designer');">rekry@luckyfox.fi</a></p>
-    <p>More information: Sanna Lehtoniemi p.
-    <a href="tel:+358445592922" class="text-link text-link--black" onclick="ga('send', 'event', 'Contact', 'Call', 'Työpaikat - Service Designer');">044 559 2922</a></p>
