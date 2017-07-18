@@ -1,4 +1,16 @@
-- name: Web developer
+- name: Android Developer
+  description: |
+    <p>We are looking for Mobile Application Developers and especially Android Developers. If you have experience of developing application for android, you might be what we are looking for! 
+    We don't expect you to have years of experience in software development.
+    If you have solid proof of your expertise from your own projects or school, you might be a match for us!</p>
+    <p>Send your application and CV to
+    <a href="mailto:rekry@luckyfox.fi" class="text-link text-link--black" onclick="ga('send', 'event', 'Contact', 'Email', 'Työpaikat - Web Developer');">rekry@luckyfox.fi</a></p>
+    <p>More information: Sanna Lehtoniemi p.
+    <a href="tel:+358445592922" class="text-link text-link--black" onclick="ga('send', 'event', 'Contact', 'Call', 'Työpaikat - Android Developer');">044 559 2922</a></p>
+
+
+
+- name: Web Developer
   description: |
     <p>We are looking for web developers to work with the modern technologies. If you master some of these techniques
     HTML5, JavaScript, Java, Scala, React, Angular, Node.js, you might be what we are looking for! Your background can be
