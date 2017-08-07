@@ -12,8 +12,8 @@
 
 - name: Full Stack Developer
   description: |
-    <p>We are looking for Full Stack Developers to work with the modern technologies. If you master some of these techniques
-    HTML5, JavaScript, Java, Scala, React, Angular, Node.js, you might be what we are looking for! We don't expect you to have years of experience in software development.
+    <p>We are looking for Full Stack Developers to work with modern technologies. If you master some of these techniques
+    HTML5, JavaScript, Java, Scala, React, Angular, Node.js, you might be what we are looking for! We don't expect you to have years of experience in software development
     but you should have solid proof of utilizing modern web technologies in software production.</p>
     <p>Send your application and CV to
     <a href="mailto:rekry@luckyfox.fi" class="text-link text-link--black" onclick="ga('send', 'event', 'Contact', 'Email', 'Työpaikat - Full Stack Developer');">rekry@luckyfox.fi</a></p>
