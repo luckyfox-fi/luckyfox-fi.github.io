@@ -1,8 +1,9 @@
-- name: Android Developer
+- name: Software Developer
   description: |
-    <p>We are looking for Mobile Application Developers and especially Android Developers. If you have experience of developing applications for android, you might be what we are looking for! 
-    We don't expect you to have years of experience in software development.
-    If you have solid proof of your expertise from your own projects or school, you might be a match for us!</p>
+    <p>We are looking for Software Developers to work with system development. 
+    If you can code with JavaScript and C#, you might be the one we are looking for. 
+    Knowing other programming languages is an advantage. Also knowing your way with MySQL is considered 
+    a bonus.</p>
     <p>Send your application and CV to
     <a href="mailto:rekry@luckyfox.fi" class="text-link text-link--black" onclick="ga('send', 'event', 'Contact', 'Email', 'Työpaikat - Android Developer');">rekry@luckyfox.fi</a></p>
     <p>More information: Sanna Lehtoniemi p.
@@ -12,7 +13,7 @@
 
 - name: Full Stack Developer
   description: |
-    <p>We are looking for Full Stack Developers to work with modern technologies. If you master some of these techniques
+    <p>We are looking for Full Stack Developers to work with modern web technologies. If you master some of these techniques
     HTML5, JavaScript, Java, Scala, React, Angular, Node.js, you might be what we are looking for! We don't expect you to have years of experience in software development
     but you should have solid proof of utilizing modern web technologies in software production.</p>
     <p>Send your application and CV to
