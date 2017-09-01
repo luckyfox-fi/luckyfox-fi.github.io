@@ -239,16 +239,20 @@ function bindSectionScrollers() {
 }
 
 function scrollNavInit() {
-    navLink.click(function () {
-        headerOnClick = true;
-        $.scrollify.enable();
-        $.scrollify.move($(this).attr('href'));
-        $.scrollify.disable();
-        setTimeout(function() {
-            lastScrollTop = $(window).scrollTop();
-            headerIsDown = false;
-            headerOnClick = false;
-        }, 1600);
+    var internalLinks = $("a[href^='#']");
+    var navList = [].concat(internalLinks, navLink);
+    $(navList).each(function() {
+        $(this).click(function () {
+            headerOnClick = true;
+            $.scrollify.enable();
+            $.scrollify.move($(this).attr('href'));
+            $.scrollify.disable();
+            setTimeout(function() {
+                lastScrollTop = $(window).scrollTop();
+                headerIsDown = false;
+                headerOnClick = false;
+            }, 1600);
+        });
     });
 }
 
