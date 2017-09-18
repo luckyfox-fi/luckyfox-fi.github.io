@@ -1,13 +1,12 @@
-- name: Software Developer
+- name: Embedded Software Developer
   description: |
-    <p>We are looking for Software Developers to work with system development. 
-    If you can code with JavaScript and C#, you might be the one we are looking for. 
-    Knowing other programming languages is an advantage. Also knowing your way with MySQL is considered 
-    a bonus.</p>
+    <p>We are looking for Embedded Software Developers to work with system designing and planning. 
+    If you can code with C++ and have experience of embedded systems (especially linux), you might be the one we are looking for. 
+    Knowing other programming languages is an advantage.</p>
     <p>Send your application and CV to
     <a href="mailto:rekry@luckyfox.fi" class="text-link text-link--black" onclick="ga('send', 'event', 'Contact', 'Email', 'Työpaikat - Software Developer');">rekry@luckyfox.fi</a></p>
     <p>More information: Sanna Lehtoniemi p.
-    <a href="tel:+358445592922" class="text-link text-link--black" onclick="ga('send', 'event', 'Contact', 'Call', 'Työpaikat - Software Developer');">044 559 2922</a></p>
+    <a href="tel:+358445592922" class="text-link text-link--black" onclick="ga('send', 'event', 'Contact', 'Call', 'Työpaikat -Embedded Software Developer');">044 559 2922</a></p>
 
 
 
